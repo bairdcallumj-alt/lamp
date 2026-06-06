@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chapter 3: Three Wishes</title>
+<style>
+:root{
+  --night:#09000f;
+  --plum:#21002f;
+  --maroon:#3b071e;
+  --gold:#d8a93b;
+  --soft-gold:#ffe3a2;
+  --cream:#f7ead0;
+  --green:#79d98d;
+  --red:#ff8978;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 16% 7%, rgba(216,169,59,.16), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(113,42,148,.28), transparent 30%),
+    linear-gradient(150deg, var(--night), var(--plum) 45%, var(--maroon));
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(255,226,160,.22) 0 1px, transparent 2px) 0 0/100px 100px,
+    radial-gradient(circle, rgba(255,255,255,.10) 0 1px, transparent 2px) 50px 45px/150px 150px;
+  opacity:.42;
+}
+.page{width:min(1160px,92vw);margin:auto;padding:34px 0 72px;position:relative;z-index:1}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px;flex-wrap:wrap}
+.topbar a{color:var(--soft-gold);text-decoration:none;border:1px solid rgba(216,169,59,.35);border-radius:999px;padding:10px 16px;background:rgba(255,255,255,.04)}
+.hero{min-height:500px;border:1px solid rgba(216,169,59,.42);border-radius:34px;overflow:hidden;position:relative;background:linear-gradient(to top, rgba(9,0,15,.96), rgba(9,0,15,.28)),url("images/chapter-3-three-wishes-hero.jpg") center/cover no-repeat,radial-gradient(circle at 58% 32%, rgba(216,169,59,.18), transparent 34%),linear-gradient(135deg, rgba(59,7,30,.95), rgba(33,0,47,.96));box-shadow:0 28px 90px rgba(0,0,0,.55)}
+.hero-content{position:absolute;left:clamp(26px,6vw,74px);right:clamp(26px,6vw,74px);bottom:clamp(34px,7vw,76px)}
+.kicker{color:var(--soft-gold);letter-spacing:.22em;text-transform:uppercase;font-weight:bold;font-size:.82rem;margin-bottom:12px}
+h1{margin:0;max-width:850px;font-size:clamp(3rem,7vw,6.4rem);line-height:.92;color:#fff1c4;text-shadow:0 0 24px rgba(216,169,59,.26)}
+.subtitle{max-width:740px;margin:22px 0 0;font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.55;color:rgba(247,234,208,.87)}
+.story-wrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:30px;margin-top:42px;align-items:start}
+.story,.panel,.results-panel{background:rgba(255,255,255,.045);border:1px solid rgba(216,169,59,.24);border-radius:28px;box-shadow:0 20px 55px rgba(0,0,0,.24)}
+.story{padding:clamp(24px,4vw,44px)}
+.story p{font-size:1.12rem;line-height:1.82;margin:0 0 24px}
+.image-strip{display:grid;gap:18px;position:sticky;top:22px}
+.image-card{min-height:190px;border-radius:24px;overflow:hidden;border:1px solid rgba(216,169,59,.28);background:linear-gradient(to top, rgba(9,0,15,.82), rgba(9,0,15,.08)),var(--img) center/cover no-repeat,linear-gradient(135deg, rgba(61,8,31,.9), rgba(34,0,48,.92));box-shadow:0 16px 40px rgba(0,0,0,.28)}
+.image-card.tall{min-height:270px}.image-card:nth-child(1){--img:url("images/chapter-3-genie-rules.jpg")}.image-card:nth-child(2){--img:url("images/chapter-3-desert-escape.jpg")}.image-card:nth-child(3){--img:url("images/chapter-3-prince-ali-wish.jpg")}
+.activities{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:24px}.panel,.results-panel{padding:26px}.wide{grid-column:1/-1}
+h2{color:var(--soft-gold);margin:0 0 14px;font-size:1.8rem}.instructions{margin:0 0 16px;color:rgba(247,234,208,.84);line-height:1.5}.mini-note{font-size:.95rem;color:rgba(247,234,208,.72);line-height:1.45}.question-row{border:1px solid rgba(255,226,160,.22);border-radius:16px;padding:12px;background:rgba(0,0,0,.18);margin:12px 0}.question-row label{display:block;color:var(--soft-gold);font-weight:bold;margin-bottom:8px}.question-row.correct{border-color:rgba(117,214,137,.75);background:rgba(57,134,75,.16)}.question-row.incorrect{border-color:rgba(255,134,117,.75);background:rgba(134,57,57,.16)}
+select,input,textarea{width:100%;border:1px solid rgba(216,169,59,.34);border-radius:14px;padding:12px;background:rgba(9,0,15,.75);color:var(--cream);font-family:inherit;font-size:1rem}textarea{min-height:130px;resize:vertical}button{cursor:pointer;border:1px solid rgba(216,169,59,.45);background:linear-gradient(135deg, rgba(216,169,59,.30), rgba(111,65,12,.32));color:#fff1c4;border-radius:999px;padding:10px 15px;font-family:inherit;font-weight:bold;margin:6px 6px 6px 0}button.secondary{background:rgba(255,255,255,.05)}.feedback{margin-top:12px;color:var(--soft-gold);font-weight:bold;min-height:1.2em}
+.venn-holder{margin-top:18px;position:relative;min-height:610px;border:1px solid rgba(216,169,59,.22);border-radius:28px;background:rgba(0,0,0,.14);overflow:hidden;padding:22px}.venn-map{position:relative;width:min(900px,100%);height:430px;margin:0 auto 16px}.circle{position:absolute;top:24px;width:430px;height:360px;border:2px solid rgba(255,226,160,.44);border-radius:50%;background:rgba(216,169,59,.075);box-shadow:inset 0 0 38px rgba(216,169,59,.08)}.left-circle{left:40px}.right-circle{right:40px}.venn-title{position:absolute;top:32px;width:260px;text-align:center;color:var(--soft-gold);font-size:1.3rem;font-weight:bold;line-height:1.2;z-index:3}.left-title{left:78px}.right-title{right:78px}.overlap-title{position:absolute;top:43px;left:50%;transform:translateX(-50%);width:170px;text-align:center;color:#fff1c4;font-size:1.2rem;font-weight:bold;z-index:3}.dropzone{position:absolute;z-index:4;border:1px dashed rgba(255,226,160,.3);border-radius:22px;padding:66px 14px 14px;min-height:255px;transition:.15s}.dropzone.drag-over{background:rgba(216,169,59,.16);border-color:var(--soft-gold)}#zone-aladdin{left:38px;top:118px;width:270px}#zone-both{left:50%;transform:translateX(-50%);top:124px;width:245px}#zone-jasmine{right:38px;top:118px;width:270px}.word-bank{border:1px solid rgba(216,169,59,.24);border-radius:22px;padding:18px;background:rgba(0,0,0,.18);min-height:92px}.word-bank h3{margin:0 0 12px;color:var(--soft-gold)}.tag{display:inline-block;cursor:grab;user-select:none;padding:9px 14px;margin:6px;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid rgba(255,226,160,.26);font-weight:bold;color:var(--cream)}.tag.selected{outline:3px solid rgba(255,226,160,.55);background:rgba(216,169,59,.18)}.tag:active{cursor:grabbing}.dropzone .tag{display:inline-block}.venn-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}.selected-help{color:rgba(247,234,208,.78)}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 16px}.score-card{border:1px solid rgba(255,226,160,.22);border-radius:18px;background:rgba(0,0,0,.18);padding:15px;margin:12px 0;line-height:1.55}.score-card strong{color:var(--soft-gold)}.preview{white-space:pre-wrap;background:rgba(0,0,0,.22);border:1px solid rgba(255,226,160,.18);border-radius:18px;padding:15px;line-height:1.45;max-height:320px;overflow:auto}.hidden{display:none!important}
+@media(max-width:960px){.story-wrap{grid-template-columns:1fr}.image-strip{position:static;grid-template-columns:repeat(3,1fr)}.activities{grid-template-columns:1fr}.venn-holder{overflow-x:auto}.venn-map{min-width:860px}.results-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.hero{min-height:450px}.image-strip{grid-template-columns:1fr}.panel,.results-panel{padding:20px}.venn-holder{padding:14px}}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="topbar">
+    <a href="chapter2.html">← Previous Chapter</a>
+    <a href="index.html">Contents</a>
+    <a href="chapter4.html">Next Chapter →</a>
+  </div>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="kicker">Chapter 3</div>
+      <h1>Three Wishes</h1>
+      <p class="subtitle">Aladdin learns the rules of the lamp, escapes the cave, and decides to become Prince Ali.</p>
+    </div>
+  </section>
+  <section class="story-wrap">
+    <article class="story">
+      <p>As the enormous blue figure floated above him, Aladdin struggled to believe what he was seeing. The Genie of the Lamp radiated magical power, yet his cheerful personality made him seem far less frightening than his size suggested. After introducing himself, the Genie explained that the lamp's owner was entitled to three wishes. Although the magic was powerful enough to change lives and kingdoms, there were limits to what it could do. The Genie could not force someone to fall in love, bring the dead back to life, or grant additional wishes. Apart from those restrictions, however, almost anything seemed possible.</p>
+      <p>Aladdin quickly realised that his most urgent problem was escaping the Cave of Wonders. Surrounded by collapsing stone and trapped beneath the desert, he used his first wish to return safely to the surface.</p>
+      <p>As Aladdin and the Genie travelled back towards Agrabah, his thoughts became increasingly complicated. He could not stop thinking about Jasmine and became convinced that someone like her could never be interested in a poor street thief.</p>
+      <p>Was he truly unworthy of Jasmine, or had he simply spent his entire life believing that wealth determined a person's value?</p>
+      <p>Using his second wish, he asked the Genie to transform him into a wealthy and impressive prince known throughout the kingdom as Prince Ali.</p>
+    </article>
+    <aside class="image-strip" aria-label="Chapter artwork"><div class="image-card tall"></div><div class="image-card"></div><div class="image-card"></div></aside>
+  </section>
+  <section class="activities">
+    <div class="panel">
+      <h2>Word Recognition</h2>
+      <p class="instructions">Choose the best meaning for each word, then press check.</p>
+      <div class="question-row" data-answer="having the right to something"><label>entitled</label><select class="vocab"><option value="">Choose...</option><option>having the right to something</option><option>rules or limits</option><option>changed into something else</option><option>social position or importance</option></select></div>
+      <div class="question-row" data-answer="rules or limits"><label>restrictions</label><select class="vocab"><option value="">Choose...</option><option>having the right to something</option><option>rules or limits</option><option>changed into something else</option><option>social position or importance</option></select></div>
+      <div class="question-row" data-answer="changed into something else"><label>transformed</label><select class="vocab"><option value="">Choose...</option><option>having the right to something</option><option>rules or limits</option><option>changed into something else</option><option>social position or importance</option></select></div>
+      <div class="question-row" data-answer="social position or importance"><label>status</label><select class="vocab"><option value="">Choose...</option><option>having the right to something</option><option>rules or limits</option><option>changed into something else</option><option>social position or importance</option></select></div>
+      <button type="button" onclick="checkSection('vocab')">Check Word Recognition</button><button class="secondary" type="button" onclick="resetSection('vocab')">Reset</button><div id="vocabFeedback" class="feedback"></div>
+    </div>
+    <div class="panel">
+      <h2>Wish Detective</h2>
+      <p class="instructions">Match the wish or rule to the correct detail.</p>
+      <div class="question-row" data-answer="Escaped the cave"><label>First Wish</label><select class="wish"><option value="">Choose...</option><option>Escaped the cave</option><option>Became Prince Ali</option><option>Make someone fall in love</option></select></div>
+      <div class="question-row" data-answer="Became Prince Ali"><label>Second Wish</label><select class="wish"><option value="">Choose...</option><option>Escaped the cave</option><option>Became Prince Ali</option><option>Make someone fall in love</option></select></div>
+      <div class="question-row" data-answer="Make someone fall in love"><label>Cannot do</label><select class="wish"><option value="">Choose...</option><option>Escaped the cave</option><option>Became Prince Ali</option><option>Make someone fall in love</option></select></div>
+      <button type="button" onclick="checkSection('wish')">Check Wish Detective</button><button class="secondary" type="button" onclick="resetSection('wish')">Reset</button><div id="wishFeedback" class="feedback"></div>
+    </div>
+    <div class="panel wide">
+      <h2>Critical Analysis: What Does Jasmine Actually Want?</h2>
+      <p class="instructions">Drag each idea into the Venn diagram, or click a word and then click the part of the diagram where it belongs. This section records student thinking rather than marking right or wrong.</p>
+      <div class="venn-holder">
+        <div class="venn-map">
+          <div class="circle left-circle"></div><div class="circle right-circle"></div>
+          <div class="venn-title left-title">Aladdin Thinks<br>Jasmine Wants</div><div class="overlap-title">Both Might Want</div><div class="venn-title right-title">Jasmine Actually<br>Wants</div>
+          <div class="dropzone" id="zone-aladdin" data-zone="Aladdin Thinks Jasmine Wants" onclick="placeSelected(this)"></div>
+          <div class="dropzone" id="zone-both" data-zone="Both Might Want" onclick="placeSelected(this)"></div>
+          <div class="dropzone" id="zone-jasmine" data-zone="Jasmine Actually Wants" onclick="placeSelected(this)"></div>
+        </div>
+        <div class="word-bank" id="wordBank" onclick="placeSelected(this)"><h3>Word Bank</h3></div>
+        <div class="venn-controls"><button type="button" onclick="resetVenn()">Reset Venn</button><span class="selected-help" id="selectedHelp">Tip: click a word, then click a circle.</span></div>
+      </div>
+      <label for="reflection" class="instructions" style="display:block;margin-top:22px">Is Aladdin changing because he wants to improve himself, or because he thinks Jasmine will only like rich people?</label>
+      <textarea id="reflection" placeholder="Write your answer here..."></textarea>
+      <label for="opinion" class="instructions" style="display:block;margin-top:18px">People need to change who they are to be successful.</label>
+      <select id="opinion"><option value="">Choose...</option><option>Strongly Agree</option><option>Agree</option><option>Not Sure</option><option>Disagree</option><option>Strongly Disagree</option></select>
+    </div>
+  </section>
+  <section class="results-panel">
+    <h2>Results and Download</h2>
+    <p class="instructions">Enter student details, generate the preview, then download the CSV. The CSV includes scores, Venn placements, reflection, opinion, and date.</p>
+    <div class="results-grid"><input id="studentName" placeholder="Student Name"><input id="studentClass" placeholder="Class"></div>
+    <button type="button" onclick="generateResults()">Generate Results Preview</button><button type="button" onclick="downloadResults()">Download Results CSV</button><button class="secondary" type="button" onclick="resetAll()">Reset Whole Page</button>
+    <div id="scoreSummary" class="score-card"><strong>No results generated yet.</strong></div>
+    <pre id="resultsPreview" class="preview hidden"></pre>
+  </section>
+</main>
+<script>
+const vennWords=["Wealth","Power","A Prince","Kindness","Respect","Honesty","Freedom","Choice","Adventure","Independence"];
+let selectedTag=null;
+let dragTag=null;
+function makeTag(word){
+  const tag=document.createElement('span');tag.className='tag';tag.textContent=word;tag.draggable=true;tag.dataset.word=word;tag.onclick=function(e){e.stopPropagation();selectTag(tag)};tag.addEventListener('dragstart',e=>{dragTag=tag;e.dataTransfer.setData('text/plain',word)});tag.addEventListener('dragend',()=>{dragTag=null});return tag;
+}
+function buildWordBank(){const bank=document.getElementById('wordBank');bank.querySelectorAll('.tag').forEach(t=>t.remove());vennWords.forEach(w=>bank.appendChild(makeTag(w)));}
+function selectTag(tag){if(selectedTag)selectedTag.classList.remove('selected');selectedTag=tag;tag.classList.add('selected');document.getElementById('selectedHelp').textContent='Selected: '+tag.dataset.word+'. Now click a Venn area.';}
+function placeSelected(zone){if(!selectedTag)return;if(zone.id==='wordBank'){zone.appendChild(selectedTag)}else{zone.appendChild(selectedTag)}selectedTag.classList.remove('selected');selectedTag=null;document.getElementById('selectedHelp').textContent='Tip: click a word, then click a circle.';}
+document.querySelectorAll('.dropzone,#wordBank').forEach(zone=>{zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over')});zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');if(dragTag){zone.appendChild(dragTag)}})});
+function checkSection(cls){let total=0,score=0;document.querySelectorAll('select.'+cls).forEach(sel=>{const row=sel.closest('.question-row');total++;row.classList.remove('correct','incorrect');if(sel.value && sel.value===row.dataset.answer){score++;row.classList.add('correct')}else{row.classList.add('incorrect')}});document.getElementById(cls+'Feedback').textContent='Score: '+score+' / '+total;return {score,total};}
+function resetSection(cls){document.querySelectorAll('select.'+cls).forEach(sel=>{sel.value='';sel.closest('.question-row').classList.remove('correct','incorrect')});document.getElementById(cls+'Feedback').textContent='';}
+function getSectionScore(cls){let total=0,score=0;document.querySelectorAll('select.'+cls).forEach(sel=>{total++;if(sel.value===sel.closest('.question-row').dataset.answer)score++});return {score,total};}
+function getVennData(){const data={"Aladdin Thinks Jasmine Wants":[],"Both Might Want":[],"Jasmine Actually Wants":[],"Unplaced":[]};document.querySelectorAll('#zone-aladdin .tag').forEach(t=>data["Aladdin Thinks Jasmine Wants"].push(t.dataset.word));document.querySelectorAll('#zone-both .tag').forEach(t=>data["Both Might Want"].push(t.dataset.word));document.querySelectorAll('#zone-jasmine .tag').forEach(t=>data["Jasmine Actually Wants"].push(t.dataset.word));document.querySelectorAll('#wordBank .tag').forEach(t=>data.Unplaced.push(t.dataset.word));return data;}
+function generateRows(){const vocab=getSectionScore('vocab');const wish=getSectionScore('wish');const venn=getVennData();return [
+  ['Student Name',document.getElementById('studentName').value],['Class',document.getElementById('studentClass').value],['Chapter','Chapter 3: Three Wishes'],['Word Recognition Score',vocab.score+' / '+vocab.total],['Wish Detective Score',wish.score+' / '+wish.total],['Total Marked Score',(vocab.score+wish.score)+' / '+(vocab.total+wish.total)],['Venn - Aladdin Thinks Jasmine Wants',venn['Aladdin Thinks Jasmine Wants'].join('; ')],['Venn - Both Might Want',venn['Both Might Want'].join('; ')],['Venn - Jasmine Actually Wants',venn['Jasmine Actually Wants'].join('; ')],['Venn - Unplaced',venn.Unplaced.join('; ')],['Reflection',document.getElementById('reflection').value],['Opinion',document.getElementById('opinion').value],['Date',new Date().toLocaleString()]
+];}
+function generateResults(){const vocab=checkSection('vocab');const wish=checkSection('wish');const rows=generateRows();const summary=document.getElementById('scoreSummary');summary.innerHTML='<strong>Marked Score:</strong> '+(vocab.score+wish.score)+' / '+(vocab.total+wish.total)+'<br><strong>Word Recognition:</strong> '+vocab.score+' / '+vocab.total+'<br><strong>Wish Detective:</strong> '+wish.score+' / '+wish.total+'<br><strong>Venn:</strong> recorded as student thinking.';const preview=document.getElementById('resultsPreview');preview.classList.remove('hidden');preview.textContent=rows.map(r=>r[0]+': '+r[1]).join('\n');}
+function downloadResults(){generateResults();const rows=generateRows();const csv=rows.map(r=>r.map(x=>'"'+String(x ?? '').replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);const name=(document.getElementById('studentName').value||'student').trim().replace(/[^a-z0-9]+/gi,'_').replace(/^_|_$/g,'');a.download='chapter3_three_wishes_'+name+'_results.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+function resetVenn(){if(selectedTag)selectedTag.classList.remove('selected');selectedTag=null;document.getElementById('selectedHelp').textContent='Tip: click a word, then click a circle.';buildWordBank();}
+function resetAll(){resetSection('vocab');resetSection('wish');resetVenn();document.getElementById('reflection').value='';document.getElementById('opinion').value='';document.getElementById('studentName').value='';document.getElementById('studentClass').value='';document.getElementById('scoreSummary').innerHTML='<strong>No results generated yet.</strong>';document.getElementById('resultsPreview').classList.add('hidden');document.getElementById('resultsPreview').textContent='';}
+buildWordBank();
+</script>
+</body>
+</html>

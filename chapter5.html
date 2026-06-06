@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chapter 5: The Truth</title>
+<style>
+:root{
+  --night:#09000f;
+  --plum:#21002f;
+  --maroon:#3b071e;
+  --gold:#d8a93b;
+  --soft-gold:#ffe3a2;
+  --cream:#f7ead0;
+  --ink:rgba(9,0,15,.86);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Georgia, "Times New Roman", serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 16% 7%, rgba(216,169,59,.16), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(113,42,148,.28), transparent 30%),
+    linear-gradient(150deg, var(--night), var(--plum) 45%, var(--maroon));
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(255,226,160,.25) 0 1px, transparent 2px) 0 0/100px 100px,
+    radial-gradient(circle, rgba(255,255,255,.13) 0 1px, transparent 2px) 50px 45px/150px 150px;
+  opacity:.42;
+}
+
+.page{
+  width:min(1160px,92vw);
+  margin:auto;
+  padding:34px 0 72px;
+  position:relative;
+  z-index:1;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:22px;
+}
+
+.topbar a{
+  color:var(--soft-gold);
+  text-decoration:none;
+  border:1px solid rgba(216,169,59,.35);
+  border-radius:999px;
+  padding:10px 16px;
+  background:rgba(255,255,255,.04);
+}
+
+.hero{
+  min-height:520px;
+  border:1px solid rgba(216,169,59,.42);
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(to top, rgba(9,0,15,.96), rgba(9,0,15,.28)),
+    url("images/chapter-5-the-truth-hero.jpg") center/cover no-repeat,
+    radial-gradient(circle at 58% 32%, rgba(216,169,59,.18), transparent 34%),
+    linear-gradient(135deg, rgba(59,7,30,.95), rgba(33,0,47,.96));
+  box-shadow:0 28px 90px rgba(0,0,0,.55);
+}
+
+.hero-content{
+  position:absolute;
+  left:clamp(26px,6vw,74px);
+  right:clamp(26px,6vw,74px);
+  bottom:clamp(34px,7vw,76px);
+}
+
+.kicker{
+  color:var(--soft-gold);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:.82rem;
+  margin-bottom:12px;
+}
+
+h1{
+  font-family: Georgia, "Times New Roman", serif;
+  margin:0;
+  max-width:850px;
+  font-size:clamp(3rem,7vw,6.4rem);
+  line-height:.92;
+  color:#fff1c4;
+  text-shadow:0 0 24px rgba(216,169,59,.26);
+}
+
+.subtitle{
+  max-width:740px;
+  margin:22px 0 0;
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  line-height:1.55;
+  color:rgba(247,234,208,.87);
+}
+
+.story-wrap{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 330px;
+  gap:30px;
+  margin-top:42px;
+  align-items:start;
+}
+
+.story{
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(216,169,59,.24);
+  border-radius:28px;
+  padding:clamp(24px,4vw,44px);
+  box-shadow:0 20px 55px rgba(0,0,0,.24);
+}
+
+.story p{
+  font-size:1.12rem;
+  line-height:1.82;
+  margin:0 0 24px;
+}
+
+.image-strip{
+  display:grid;
+  gap:18px;
+  position:sticky;
+  top:22px;
+}
+
+.image-card{
+  min-height:190px;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(216,169,59,.28);
+  background:
+    linear-gradient(to top, rgba(9,0,15,.82), rgba(9,0,15,.08)),
+    var(--img) center/cover no-repeat,
+    linear-gradient(135deg, rgba(61,8,31,.9), rgba(34,0,48,.92));
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+
+.image-card.tall{min-height:270px}
+
+.image-card:nth-child(1){--img:url("images/chapter-5-carpet-ride.jpg")}
+.image-card:nth-child(2){--img:url("images/chapter-5-jasmine-trust.jpg")}
+.image-card:nth-child(3){--img:url("images/chapter-5-lamp-stolen.jpg")}
+
+.activities{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.panel{
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.vocab-card{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.vocab-card strong{
+  color:var(--soft-gold);
+}
+
+.vocab-instructions{
+  margin:0 0 16px;
+  color:rgba(247,234,208,.82);
+  line-height:1.45;
+}
+
+.match-list{
+  display:grid;
+  gap:12px;
+}
+
+.match-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:12px;
+  align-items:center;
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.match-word{
+  color:var(--soft-gold);
+  font-weight:bold;
+  font-size:1.12rem;
+}
+
+.match-row select{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.match-row.correct{
+  border-color:rgba(117,214,137,.75);
+  background:rgba(57,134,75,.16);
+}
+
+.match-row.incorrect{
+  border-color:rgba(255,134,117,.75);
+  background:rgba(134,57,57,.16);
+}
+
+.vocab-result{
+  margin-top:16px;
+  color:var(--soft-gold);
+  font-weight:bold;
+}
+
+@media(max-width:620px){
+  .match-row{grid-template-columns:1fr}
+}
+
+
+.memory-controls{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+button,.download{
+  cursor:pointer;
+  border:1px solid rgba(216,169,59,.45);
+  background:linear-gradient(135deg, rgba(216,169,59,.28), rgba(111,65,12,.28));
+  color:#fff1c4;
+  border-radius:999px;
+  padding:10px 14px;
+  font-family:inherit;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.flip-card{
+  min-height:74px;
+  border:1px solid rgba(255,226,160,.25);
+  border-radius:16px;
+  background:rgba(0,0,0,.28);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:10px;
+  cursor:pointer;
+  color:transparent;
+  user-select:none;
+  transition:.2s;
+}
+
+.flip-card::after{
+  content:"?";
+  color:#fff1c4;
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+.flip-card.flipped,
+.flip-card.matched{
+  color:#fff1c4;
+  background:rgba(216,169,59,.16);
+}
+
+.flip-card.flipped::after,
+.flip-card.matched::after{
+  display:none;
+}
+
+.csv-box{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:24px;
+  padding:22px;
+  background:rgba(0,0,0,.18);
+}
+
+.csv-box p{
+  margin-top:0;
+  line-height:1.5;
+  color:rgba(247,234,208,.8);
+}
+
+
+.results-panel{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.results-panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:14px 0 16px;
+}
+
+.results-grid input{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.export-note{
+  color:rgba(247,234,208,.8);
+  line-height:1.45;
+  margin:0 0 12px;
+}
+
+@media(max-width:620px){
+  .results-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:920px){
+  .story-wrap{grid-template-columns:1fr}
+  .image-strip{position:static; grid-template-columns:repeat(3,1fr)}
+  .image-card,.image-card.tall{min-height:180px}
+  .activities{grid-template-columns:1fr}
+}
+
+@media(max-width:620px){
+  .topbar{align-items:flex-start; flex-direction:column}
+  .hero{min-height:480px}
+  .image-strip{grid-template-columns:1fr}
+  .memory-grid{grid-template-columns:repeat(2,1fr)}
+  .vocab-grid{grid-template-columns:1fr}
+}
+
+/* Compatibility for Chapter 3 activity layout only. Hero/title CSS above is unchanged from Chapter 1. */
+label{
+  display:block;
+  margin:18px 0 8px;
+  color:rgba(247,234,208,.88);
+  line-height:1.45;
+}
+
+select,input,textarea{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.wide{
+  grid-column:1/-1;
+}
+
+.venn{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+  margin-top:15px;
+}
+
+.zone{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:20px;
+  padding:15px;
+  min-height:260px;
+  background:rgba(0,0,0,.18);
+}
+
+.zone h3{
+  margin-top:0;
+  color:var(--soft-gold);
+}
+
+.bank{
+  margin-top:20px;
+}
+
+.tag{
+  display:inline-block;
+  padding:8px 12px;
+  margin:5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,226,160,.16);
+}
+
+@media(max-width:920px){
+  .venn{grid-template-columns:1fr}
+}
+
+
+.quiz-list{
+  display:grid;
+  gap:14px;
+}
+
+.quiz-row{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:14px;
+  background:rgba(0,0,0,.18);
+}
+
+.quiz-row label,
+.panel label{
+  display:block;
+  color:rgba(247,234,208,.9);
+  line-height:1.45;
+  margin:0 0 10px;
+  font-weight:bold;
+}
+
+.quiz-row select,
+.panel select,
+.panel textarea{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.panel textarea{
+  min-height:110px;
+  margin:10px 0 18px;
+  resize:vertical;
+}
+
+.quiz-row.correct{
+  border-color:rgba(117,214,137,.75);
+  background:rgba(57,134,75,.16);
+}
+
+.quiz-row.incorrect{
+  border-color:rgba(255,134,117,.75);
+  background:rgba(134,57,57,.16);
+}
+
+.wide{
+  grid-column:1/-1;
+}
+
+</style>
+</head>
+
+<body>
+<main class="page">
+  <div class="topbar">
+    <a href="chapter4.html">← Previous Chapter</a>
+    <a href="index.html">Contents</a>
+    <a href="chapter6.html">Next Chapter →</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="kicker">Chapter 5</div>
+      <h1>The Truth</h1>
+      <p class="subtitle">A magic carpet ride deepens Jasmine's trust, but Aladdin's secret becomes harder to hide as Jafar closes in on the lamp.</p>
+    </div>
+  </section>
+
+  <section class="story-wrap">
+    <article class="story">
+      <p>As the days passed, Aladdin found it increasingly difficult to separate his real self from the identity he had created. Although the title of Prince Ali had opened palace doors and earned the respect of nobles, it was during his time with Jasmine that he felt most like himself. One evening, hoping to escape the expectations and formality that surrounded them, he invited her on a journey aboard a magical flying carpet.</p>
+
+      <p>Together they soared above Agrabah as the city lights flickered below like scattered stars. They drifted across deserts, mountains, and moonlit seas, watching the world unfold beneath them. Free from palace walls and royal responsibilities, Jasmine appeared happier than Aladdin had ever seen her. For the first time, she felt that someone truly listened to her thoughts rather than simply hearing her title. As the carpet carried them through the night sky, a genuine bond began to form between them.</p>
+
+      <p>The experience strengthened Jasmine's trust in Aladdin, yet it had the opposite effect on him. The closer they became, the more uncomfortable he felt about the secret he continued to hide. He knew that Jasmine admired qualities such as honesty and independence, and he worried that revealing the truth would destroy everything they had built together. Despite these concerns, he repeatedly convinced himself that there would be time to explain later.</p>
+
+      <p>While Jasmine's trust was growing, Jafar's suspicions were growing even faster.</p>
+
+      <p>The royal adviser had spent years studying people and uncovering secrets, and something about Prince Ali refused to make sense. Determined to discover the truth, he began investigating the mysterious prince's sudden appearance. Before long, his search revealed a connection between Prince Ali and the street thief who had vanished from the palace prison only days earlier. More importantly, Jafar discovered the existence of the magical lamp.</p>
+
+      <p>Driven by his hunger for power, Jafar acted quickly. Under the cover of darkness, he stole the lamp from Aladdin's chambers and claimed it for himself. By the time Aladdin realised what had happened, the most powerful object in the kingdom was no longer in his possession, and the future he had imagined was beginning to collapse around him.</p>
+    </article>
+
+    <aside class="image-strip" aria-label="Chapter artwork">
+      <div class="image-card tall"></div>
+      <div class="image-card"></div>
+      <div class="image-card"></div>
+    </aside>
+  </section>
+
+  <section class="activities">
+    <div class="panel">
+      <h2>Word Recognition</h2>
+      <p class="vocab-instructions">Match each Chapter 5 word to its meaning, then check your answers.</p>
+
+      <div class="match-list" id="vocabMatch">
+        <div class="match-row" data-answer="real and sincere">
+          <div class="match-word">genuine</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>real and sincere</option>
+            <option>feelings that something may be wrong</option>
+            <option>to examine carefully for information</option>
+            <option>able to think and act for yourself</option>
+            <option>made known or uncovered</option>
+            <option>to suddenly fall apart</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="feelings that something may be wrong">
+          <div class="match-word">suspicions</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>real and sincere</option>
+            <option>feelings that something may be wrong</option>
+            <option>to examine carefully for information</option>
+            <option>able to think and act for yourself</option>
+            <option>made known or uncovered</option>
+            <option>to suddenly fall apart</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="to examine carefully for information">
+          <div class="match-word">investigate</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>real and sincere</option>
+            <option>feelings that something may be wrong</option>
+            <option>to examine carefully for information</option>
+            <option>able to think and act for yourself</option>
+            <option>made known or uncovered</option>
+            <option>to suddenly fall apart</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="able to think and act for yourself">
+          <div class="match-word">independent</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>real and sincere</option>
+            <option>feelings that something may be wrong</option>
+            <option>to examine carefully for information</option>
+            <option>able to think and act for yourself</option>
+            <option>made known or uncovered</option>
+            <option>to suddenly fall apart</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="made known or uncovered">
+          <div class="match-word">revealed</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>real and sincere</option>
+            <option>feelings that something may be wrong</option>
+            <option>to examine carefully for information</option>
+            <option>able to think and act for yourself</option>
+            <option>made known or uncovered</option>
+            <option>to suddenly fall apart</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="to suddenly fall apart">
+          <div class="match-word">collapse</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>real and sincere</option>
+            <option>feelings that something may be wrong</option>
+            <option>to examine carefully for information</option>
+            <option>able to think and act for yourself</option>
+            <option>made known or uncovered</option>
+            <option>to suddenly fall apart</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="memory-controls" style="margin-top:16px;">
+        <button onclick="checkVocab()">Check Vocabulary</button>
+        <button onclick="resetVocab()">Reset</button>
+      </div>
+      <div class="vocab-result" id="vocabResult"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Comprehension</h2>
+      <p class="vocab-instructions">Choose the best answer for each question.</p>
+
+      <div class="quiz-list" id="comprehensionQuiz">
+        <div class="quiz-row" data-answer="Because she felt listened to and understood.">
+          <label>1. Why did Jasmine enjoy the carpet ride so much?</label>
+          <select>
+            <option value="">Choose an answer...</option>
+            <option>Because she was given expensive gifts.</option>
+            <option>Because she felt listened to and understood.</option>
+            <option>Because she wanted to leave Agrabah forever.</option>
+            <option>Because she wanted to impress the Sultan.</option>
+          </select>
+        </div>
+
+        <div class="quiz-row" data-answer="He felt guilty about hiding the truth.">
+          <label>2. Why was Aladdin becoming uncomfortable?</label>
+          <select>
+            <option value="">Choose an answer...</option>
+            <option>He disliked being a prince.</option>
+            <option>He was worried about Jafar.</option>
+            <option>He felt guilty about hiding the truth.</option>
+            <option>He wanted to leave Jasmine.</option>
+          </select>
+        </div>
+
+        <div class="quiz-row" data-answer="Prince Ali's story did not make sense.">
+          <label>3. What made Jafar suspicious?</label>
+          <select>
+            <option value="">Choose an answer...</option>
+            <option>The Genie told him.</option>
+            <option>Jasmine warned him.</option>
+            <option>Prince Ali's story did not make sense.</option>
+            <option>The Sultan asked him to investigate.</option>
+          </select>
+        </div>
+
+        <div class="quiz-row" data-answer="The lamp.">
+          <label>4. What important object did Jafar steal?</label>
+          <select>
+            <option value="">Choose an answer...</option>
+            <option>The palace crown.</option>
+            <option>The flying carpet.</option>
+            <option>The lamp.</option>
+            <option>The Sultan's staff.</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="memory-controls" style="margin-top:16px;">
+        <button onclick="checkComprehension()">Check Comprehension</button>
+        <button onclick="resetComprehension()">Reset</button>
+      </div>
+      <div class="vocab-result" id="comprehensionResult"></div>
+    </div>
+
+    <div class="panel wide">
+      <h2>Critical Thought: Trust vs Truth</h2>
+      <p class="vocab-instructions">There is no single correct answer here. Choose a position and support your thinking with evidence from the chapter.</p>
+
+      <label>1. Is it ever acceptable to lie if your intentions are good?</label>
+      <select id="criticalOpinion1">
+        <option value="">Choose a position...</option>
+        <option>Strongly Agree</option>
+        <option>Agree</option>
+        <option>Not Sure</option>
+        <option>Disagree</option>
+        <option>Strongly Disagree</option>
+      </select>
+      <textarea id="criticalResponse1" placeholder="Explain your answer using evidence from the chapter."></textarea>
+
+      <label>2. Who is more responsible for the problem at the end of the chapter?</label>
+      <select id="criticalOpinion2">
+        <option value="">Choose a position...</option>
+        <option>Aladdin, because he lied.</option>
+        <option>Jafar, because he stole the lamp.</option>
+        <option>Both equally.</option>
+      </select>
+      <textarea id="criticalResponse2" placeholder="Explain your answer using evidence from the story."></textarea>
+
+      <label>3. When should Aladdin have told Jasmine the truth?</label>
+      <select id="criticalOpinion3">
+        <option value="">Choose an answer...</option>
+        <option>Before becoming Prince Ali.</option>
+        <option>During the carpet ride.</option>
+        <option>After Jasmine trusted him.</option>
+        <option>He should never have told her.</option>
+      </select>
+      <textarea id="criticalResponse3" placeholder="Explain your reasoning."></textarea>
+
+      <label>4. What would hurt more?</label>
+      <select id="criticalOpinion4">
+        <option value="">Choose an answer...</option>
+        <option>Finding out someone lied to you.</option>
+        <option>Finding out the lie was told because they cared about you.</option>
+        <option>Both would hurt equally.</option>
+      </select>
+      <textarea id="criticalResponse4" placeholder="Explain why."></textarea>
+    </div>
+  </section>
+
+  <section class="results-panel">
+<h2>Download Results</h2>
+<input id="studentName" placeholder="Student Name">
+<input id="studentClass" placeholder="Class">
+
+<button onclick="downloadResults()">Download Results CSV</button>
+  </section>
+
+</main>
+
+<script>
+
+function checkVocab(){
+  const rows = document.querySelectorAll(".match-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    row.classList.remove("correct","incorrect");
+    if(select.value === row.dataset.answer){
+      row.classList.add("correct");
+      score++;
+    }else{
+      row.classList.add("incorrect");
+    }
+  });
+  document.getElementById("vocabResult").textContent = "Word Recognition score: " + score + " / " + rows.length;
+}
+
+function resetVocab(){
+  document.querySelectorAll(".match-row").forEach(row => {
+    row.classList.remove("correct","incorrect");
+    row.querySelector("select").value = "";
+  });
+  document.getElementById("vocabResult").textContent = "";
+}
+
+function checkComprehension(){
+  const rows = document.querySelectorAll(".quiz-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    row.classList.remove("correct","incorrect");
+    if(select.value === row.dataset.answer){
+      row.classList.add("correct");
+      score++;
+    }else{
+      row.classList.add("incorrect");
+    }
+  });
+  document.getElementById("comprehensionResult").textContent = "Comprehension score: " + score + " / " + rows.length;
+}
+
+function resetComprehension(){
+  document.querySelectorAll(".quiz-row").forEach(row => {
+    row.classList.remove("correct","incorrect");
+    row.querySelector("select").value = "";
+  });
+  document.getElementById("comprehensionResult").textContent = "";
+}
+
+const pairs = [
+  ["Aladdin", "Prince Ali"],
+  ["Jasmine", "Trust"],
+  ["Carpet", "Flight"],
+  ["Agrabah", "City Lights"],
+  ["Jafar", "Suspicious"],
+  ["Lamp", "Stolen"],
+  ["Truth", "Secret"],
+  ["Power", "Danger"]
+];
+
+let cards = [];
+let first = null;
+let lock = false;
+
+function buildCards(){
+  cards = pairs.flatMap(pair => [
+    {text:pair[0], match:pair[1]},
+    {text:pair[1], match:pair[0]}
+  ]);
+}
+
+function shuffleCards(){
+  buildCards();
+  cards.sort(() => Math.random() - 0.5);
+  const grid = document.getElementById("memoryGrid");
+  if(!grid) return;
+  grid.innerHTML = "";
+  first = null;
+  lock = false;
+
+  cards.forEach(card => {
+    const el = document.createElement("div");
+    el.className = "flip-card";
+    el.textContent = card.text;
+    el.dataset.text = card.text;
+    el.dataset.match = card.match;
+    el.onclick = () => flip(el);
+    grid.appendChild(el);
+  });
+}
+
+function flip(el){
+  if(lock || el.classList.contains("flipped") || el.classList.contains("matched")) return;
+  el.classList.add("flipped");
+
+  if(!first){
+    first = el;
+    return;
+  }
+
+  if(first.dataset.match === el.dataset.text){
+    first.classList.add("matched");
+    el.classList.add("matched");
+    first = null;
+  }else{
+    lock = true;
+    setTimeout(() => {
+      first.classList.remove("flipped");
+      el.classList.remove("flipped");
+      first = null;
+      lock = false;
+    }, 800);
+  }
+}
+
+function resetGame(){
+  shuffleCards();
+}
+
+function getVocabScore(){
+  const rows = document.querySelectorAll(".match-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    if(select.value === row.dataset.answer){
+      score++;
+    }
+  });
+  return score + " / " + rows.length;
+}
+
+function getComprehensionScore(){
+  const rows = document.querySelectorAll(".quiz-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    if(select.value === row.dataset.answer){
+      score++;
+    }
+  });
+  return score + " / " + rows.length;
+}
+
+function getMemoryScore(){
+  const matched = document.querySelectorAll(".flip-card.matched").length;
+  const total = document.querySelectorAll(".flip-card").length;
+  return (matched / 2) + " / " + (total / 2) + " pairs";
+}
+
+function csvSafe(value){
+  return '"' + String(value ?? "").replace(/"/g, '""') + '"';
+}
+
+function downloadResults(){
+  const rows = [
+    ["Student Name", document.getElementById("studentName")?.value || ""],
+    ["Class", document.getElementById("studentClass")?.value || ""],
+    ["Chapter", "Chapter 5: The Truth"],
+    ["Word Recognition Score", getVocabScore()],
+    ["Comprehension Score", getComprehensionScore()],
+    ["Memory Score", getMemoryScore()],
+    ["Critical Thought 1 Position", document.getElementById("criticalOpinion1")?.value || ""],
+    ["Critical Thought 1 Response", document.getElementById("criticalResponse1")?.value || ""],
+    ["Critical Thought 2 Position", document.getElementById("criticalOpinion2")?.value || ""],
+    ["Critical Thought 2 Response", document.getElementById("criticalResponse2")?.value || ""],
+    ["Critical Thought 3 Position", document.getElementById("criticalOpinion3")?.value || ""],
+    ["Critical Thought 3 Response", document.getElementById("criticalResponse3")?.value || ""],
+    ["Critical Thought 4 Position", document.getElementById("criticalOpinion4")?.value || ""],
+    ["Critical Thought 4 Response", document.getElementById("criticalResponse4")?.value || ""],
+    ["Date", new Date().toLocaleString()]
+  ];
+
+  const csv = rows.map(row => row.map(csvSafe).join(",")).join("\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "chapter5_the_truth_results.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+shuffleCards();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chapter 1: A Princess in Disguise</title>
+<style>
+:root{
+  --night:#09000f;
+  --plum:#21002f;
+  --maroon:#3b071e;
+  --gold:#d8a93b;
+  --soft-gold:#ffe3a2;
+  --cream:#f7ead0;
+  --ink:rgba(9,0,15,.86);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Georgia, "Times New Roman", serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 16% 7%, rgba(216,169,59,.16), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(113,42,148,.28), transparent 30%),
+    linear-gradient(150deg, var(--night), var(--plum) 45%, var(--maroon));
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(255,226,160,.25) 0 1px, transparent 2px) 0 0/100px 100px,
+    radial-gradient(circle, rgba(255,255,255,.13) 0 1px, transparent 2px) 50px 45px/150px 150px;
+  opacity:.42;
+}
+
+.page{
+  width:min(1160px,92vw);
+  margin:auto;
+  padding:34px 0 72px;
+  position:relative;
+  z-index:1;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:22px;
+}
+
+.topbar a{
+  color:var(--soft-gold);
+  text-decoration:none;
+  border:1px solid rgba(216,169,59,.35);
+  border-radius:999px;
+  padding:10px 16px;
+  background:rgba(255,255,255,.04);
+}
+
+.hero{
+  min-height:520px;
+  border:1px solid rgba(216,169,59,.42);
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(to top, rgba(9,0,15,.96), rgba(9,0,15,.28)),
+    url("images/chapter-1-princess-disguise-hero.jpg") center/cover no-repeat,
+    radial-gradient(circle at 58% 32%, rgba(216,169,59,.18), transparent 34%),
+    linear-gradient(135deg, rgba(59,7,30,.95), rgba(33,0,47,.96));
+  box-shadow:0 28px 90px rgba(0,0,0,.55);
+}
+
+.hero-content{
+  position:absolute;
+  left:clamp(26px,6vw,74px);
+  right:clamp(26px,6vw,74px);
+  bottom:clamp(34px,7vw,76px);
+}
+
+.kicker{
+  color:var(--soft-gold);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:.82rem;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+  max-width:850px;
+  font-size:clamp(3rem,7vw,6.4rem);
+  line-height:.92;
+  color:#fff1c4;
+  text-shadow:0 0 24px rgba(216,169,59,.26);
+}
+
+.subtitle{
+  max-width:740px;
+  margin:22px 0 0;
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  line-height:1.55;
+  color:rgba(247,234,208,.87);
+}
+
+.story-wrap{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 330px;
+  gap:30px;
+  margin-top:42px;
+  align-items:start;
+}
+
+.story{
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(216,169,59,.24);
+  border-radius:28px;
+  padding:clamp(24px,4vw,44px);
+  box-shadow:0 20px 55px rgba(0,0,0,.24);
+}
+
+.story p{
+  font-size:1.12rem;
+  line-height:1.82;
+  margin:0 0 24px;
+}
+
+.image-strip{
+  display:grid;
+  gap:18px;
+  position:sticky;
+  top:22px;
+}
+
+.image-card{
+  min-height:190px;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(216,169,59,.28);
+  background:
+    linear-gradient(to top, rgba(9,0,15,.82), rgba(9,0,15,.08)),
+    var(--img) center/cover no-repeat,
+    linear-gradient(135deg, rgba(61,8,31,.9), rgba(34,0,48,.92));
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+
+.image-card.tall{min-height:270px}
+
+.image-card:nth-child(1){--img:url("images/chapter-1-palace-balcony.jpg")}
+.image-card:nth-child(2){--img:url("images/chapter-1-marketplace.jpg")}
+.image-card:nth-child(3){--img:url("images/chapter-1-aladdin-chase.jpg")}
+
+.activities{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.panel{
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.vocab-card{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.vocab-card strong{
+  color:var(--soft-gold);
+}
+
+.vocab-instructions{
+  margin:0 0 16px;
+  color:rgba(247,234,208,.82);
+  line-height:1.45;
+}
+
+.match-list{
+  display:grid;
+  gap:12px;
+}
+
+.match-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:12px;
+  align-items:center;
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.match-word{
+  color:var(--soft-gold);
+  font-weight:bold;
+  font-size:1.12rem;
+}
+
+.match-row select{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.match-row.correct{
+  border-color:rgba(117,214,137,.75);
+  background:rgba(57,134,75,.16);
+}
+
+.match-row.incorrect{
+  border-color:rgba(255,134,117,.75);
+  background:rgba(134,57,57,.16);
+}
+
+.vocab-result{
+  margin-top:16px;
+  color:var(--soft-gold);
+  font-weight:bold;
+}
+
+@media(max-width:620px){
+  .match-row{grid-template-columns:1fr}
+}
+
+
+.memory-controls{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+button,.download{
+  cursor:pointer;
+  border:1px solid rgba(216,169,59,.45);
+  background:linear-gradient(135deg, rgba(216,169,59,.28), rgba(111,65,12,.28));
+  color:#fff1c4;
+  border-radius:999px;
+  padding:10px 14px;
+  font-family:inherit;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.flip-card{
+  min-height:74px;
+  border:1px solid rgba(255,226,160,.25);
+  border-radius:16px;
+  background:rgba(0,0,0,.28);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:10px;
+  cursor:pointer;
+  color:transparent;
+  user-select:none;
+  transition:.2s;
+}
+
+.flip-card::after{
+  content:"?";
+  color:#fff1c4;
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+.flip-card.flipped,
+.flip-card.matched{
+  color:#fff1c4;
+  background:rgba(216,169,59,.16);
+}
+
+.flip-card.flipped::after,
+.flip-card.matched::after{
+  display:none;
+}
+
+.csv-box{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:24px;
+  padding:22px;
+  background:rgba(0,0,0,.18);
+}
+
+.csv-box p{
+  margin-top:0;
+  line-height:1.5;
+  color:rgba(247,234,208,.8);
+}
+
+
+.results-panel{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.results-panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:14px 0 16px;
+}
+
+.results-grid input{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.export-note{
+  color:rgba(247,234,208,.8);
+  line-height:1.45;
+  margin:0 0 12px;
+}
+
+@media(max-width:620px){
+  .results-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:920px){
+  .story-wrap{grid-template-columns:1fr}
+  .image-strip{position:static; grid-template-columns:repeat(3,1fr)}
+  .image-card,.image-card.tall{min-height:180px}
+  .activities{grid-template-columns:1fr}
+}
+
+@media(max-width:620px){
+  .topbar{align-items:flex-start; flex-direction:column}
+  .hero{min-height:480px}
+  .image-strip{grid-template-columns:1fr}
+  .memory-grid{grid-template-columns:repeat(2,1fr)}
+  .vocab-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+  <div class="topbar">
+    <a href="index.html">← Contents</a>
+    <a href="chapter2.html">Next Chapter →</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="kicker">Chapter 1</div>
+      <h1>A Princess in Disguise</h1>
+      <p class="subtitle">Jasmine leaves the palace, Aladdin is captured in the marketplace, and Jafar sees the chance he has been waiting for.</p>
+    </div>
+  </section>
+
+  <section class="story-wrap">
+    <article class="story">
+      <p>The city of Agrabah sparkled beneath the desert sun, its golden domes and white stone towers rising above a maze of crowded streets filled with merchants, travellers, and market stalls. From the highest balcony of the Sultan's palace, Princess Jasmine could see the entire city stretching towards the horizon, yet despite the magnificent view, she felt trapped. Every day seemed to follow the same routine of lessons, ceremonies, and meetings with visiting princes, all of whom appeared far more interested in her title than her thoughts, dreams, or ambitions. As her next birthday approached, the pressure to choose a husband intensified, making the palace feel less like a home and more like a cage decorated with marble and gold.</p>
+
+      <p>Determined to experience life beyond the palace walls, Jasmine disguised herself in simple clothing and slipped unnoticed into the city. For the first time in years, she found herself surrounded by ordinary people rather than servants and advisers. The bustling marketplace fascinated her. Merchants argued over prices, children darted through the crowd, and performers entertained audiences with music and acrobatics. The city felt alive in a way the palace never had.</p>
+
+      <p>Among the crowd moved a young thief named Aladdin, whose daily struggle for survival had taught him to think quickly and act even faster. Driven by hunger, he stole a loaf of bread from a baker's stall and disappeared into the marketplace, only to attract the attention of the palace guards. During the chase, he briefly encountered Jasmine and was struck by how differently she carried herself from everyone around her. Although neither revealed their true identity, both left the encounter curious about the other.</p>
+
+      <p>The chase ended when the guards finally captured Aladdin and dragged him away toward the palace prison. As he disappeared into the crowd, Jasmine found herself wondering what circumstances had driven him to steal in the first place. Watching from a shadowed palace balcony, however, another observer had taken a far greater interest. Jafar, the Sultan's ambitious adviser, believed he had finally found the person capable of entering the legendary Cave of Wonders.</p>
+    </article>
+
+    <aside class="image-strip" aria-label="Chapter artwork">
+      <div class="image-card tall"></div>
+      <div class="image-card"></div>
+      <div class="image-card"></div>
+    </aside>
+  </section>
+
+  <section class="activities">
+    <div class="panel">
+      <h2>Vocabulary Builder</h2>
+      <p class="vocab-instructions">Match each chapter word to its meaning, then check your answers.</p>
+
+      <div class="match-list" id="vocabMatch">
+        <div class="match-row" data-answer="extremely impressive or beautiful">
+          <div class="match-word">magnificent</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>became stronger or more serious</option>
+            <option>changed appearance to hide identity</option>
+            <option>extremely impressive or beautiful</option>
+            <option>full of busy movement and noise</option>
+            <option>staying alive despite difficulty</option>
+            <option>wanting power, success, or status</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="became stronger or more serious">
+          <div class="match-word">intensified</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>became stronger or more serious</option>
+            <option>changed appearance to hide identity</option>
+            <option>extremely impressive or beautiful</option>
+            <option>full of busy movement and noise</option>
+            <option>staying alive despite difficulty</option>
+            <option>wanting power, success, or status</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="changed appearance to hide identity">
+          <div class="match-word">disguised</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>became stronger or more serious</option>
+            <option>changed appearance to hide identity</option>
+            <option>extremely impressive or beautiful</option>
+            <option>full of busy movement and noise</option>
+            <option>staying alive despite difficulty</option>
+            <option>wanting power, success, or status</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="full of busy movement and noise">
+          <div class="match-word">bustling</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>became stronger or more serious</option>
+            <option>changed appearance to hide identity</option>
+            <option>extremely impressive or beautiful</option>
+            <option>full of busy movement and noise</option>
+            <option>staying alive despite difficulty</option>
+            <option>wanting power, success, or status</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="staying alive despite difficulty">
+          <div class="match-word">survival</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>became stronger or more serious</option>
+            <option>changed appearance to hide identity</option>
+            <option>extremely impressive or beautiful</option>
+            <option>full of busy movement and noise</option>
+            <option>staying alive despite difficulty</option>
+            <option>wanting power, success, or status</option>
+          </select>
+        </div>
+
+        <div class="match-row" data-answer="wanting power, success, or status">
+          <div class="match-word">ambitious</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>became stronger or more serious</option>
+            <option>changed appearance to hide identity</option>
+            <option>extremely impressive or beautiful</option>
+            <option>full of busy movement and noise</option>
+            <option>staying alive despite difficulty</option>
+            <option>wanting power, success, or status</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="memory-controls" style="margin-top:16px;">
+        <button onclick="checkVocab()">Check Vocabulary</button>
+        <button onclick="resetVocab()">Reset</button>
+      </div>
+      <div class="vocab-result" id="vocabResult"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Memory Flip</h2>
+      <div class="memory-controls">
+        <button onclick="resetGame()">Reset Game</button>
+        <button onclick="shuffleCards()">Shuffle</button>
+      </div>
+      <div class="memory-grid" id="memoryGrid"></div>
+    </div>
+  </section>
+
+  <section class="results-panel">
+    <h2>Download Results</h2>
+    <p class="export-note">Students enter their name and class, then download a CSV showing their vocabulary score and memory game progress.</p>
+    <div class="results-grid">
+      <input id="studentName" type="text" placeholder="Student name">
+      <input id="studentClass" type="text" placeholder="Class">
+    </div>
+    <button onclick="downloadResults()">Download Results CSV</button>
+  </section>
+
+</main>
+
+<script>
+
+function checkVocab(){
+  const rows = document.querySelectorAll(".match-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    row.classList.remove("correct","incorrect");
+    if(select.value === row.dataset.answer){
+      row.classList.add("correct");
+      score++;
+    }else{
+      row.classList.add("incorrect");
+    }
+  });
+  document.getElementById("vocabResult").textContent = "Vocabulary score: " + score + " / " + rows.length;
+}
+
+function resetVocab(){
+  document.querySelectorAll(".match-row").forEach(row => {
+    row.classList.remove("correct","incorrect");
+    row.querySelector("select").value = "";
+  });
+  document.getElementById("vocabResult").textContent = "";
+}
+
+
+const pairs = [
+  ["Jasmine", "Princess"],
+  ["Aladdin", "Thief"],
+  ["Jafar", "Adviser"],
+  ["Agrabah", "City"],
+  ["Palace", "Cage"],
+  ["Market", "Crowded"],
+  ["Bread", "Stolen"],
+  ["Cave", "Wonders"]
+];
+
+let cards = [];
+let first = null;
+let lock = false;
+
+function buildCards(){
+  cards = pairs.flatMap(pair => [
+    {text:pair[0], match:pair[1]},
+    {text:pair[1], match:pair[0]}
+  ]);
+}
+
+function shuffleCards(){
+  buildCards();
+  cards.sort(() => Math.random() - 0.5);
+  const grid = document.getElementById("memoryGrid");
+  grid.innerHTML = "";
+  first = null;
+  lock = false;
+
+  cards.forEach(card => {
+    const el = document.createElement("div");
+    el.className = "flip-card";
+    el.textContent = card.text;
+    el.dataset.text = card.text;
+    el.dataset.match = card.match;
+    el.onclick = () => flip(el);
+    grid.appendChild(el);
+  });
+}
+
+function flip(el){
+  if(lock || el.classList.contains("flipped") || el.classList.contains("matched")) return;
+  el.classList.add("flipped");
+
+  if(!first){
+    first = el;
+    return;
+  }
+
+  if(first.dataset.match === el.dataset.text){
+    first.classList.add("matched");
+    el.classList.add("matched");
+    first = null;
+  }else{
+    lock = true;
+    setTimeout(() => {
+      first.classList.remove("flipped");
+      el.classList.remove("flipped");
+      first = null;
+      lock = false;
+    }, 800);
+  }
+}
+
+
+function getVocabScore(){
+  const rows = document.querySelectorAll(".match-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    if(select.value === row.dataset.answer){
+      score++;
+    }
+  });
+  return score + " / " + rows.length;
+}
+
+function getMemoryScore(){
+  const matched = document.querySelectorAll(".flip-card.matched").length;
+  const total = document.querySelectorAll(".flip-card").length;
+  return (matched / 2) + " / " + (total / 2) + " pairs";
+}
+
+function csvSafe(value){
+  return '"' + String(value ?? "").replace(/"/g, '""') + '"';
+}
+
+function downloadResults(){
+  const rows = [
+    ["Student Name", document.getElementById("studentName").value],
+    ["Class", document.getElementById("studentClass").value],
+    ["Chapter", "Chapter 1: A Princess in Disguise"],
+    ["Vocabulary Score", getVocabScore()],
+    ["Memory Score", getMemoryScore()],
+    ["Date", new Date().toLocaleString()]
+  ];
+
+  const csv = rows.map(row => row.map(csvSafe).join(",")).join("\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "chapter1_princess_in_disguise_results.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+
+function resetGame(){
+  shuffleCards();
+}
+
+shuffleCards();
+</script>
+</body>
+</html>

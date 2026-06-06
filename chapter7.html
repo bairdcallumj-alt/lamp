@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chapter 7: The Final Wish</title>
+<style>
+:root{
+  --night:#09000f;
+  --plum:#21002f;
+  --maroon:#3b071e;
+  --gold:#d8a93b;
+  --soft-gold:#ffe3a2;
+  --cream:#f7ead0;
+  --ink:rgba(9,0,15,.86);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Georgia, "Times New Roman", serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 16% 7%, rgba(216,169,59,.16), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(113,42,148,.28), transparent 30%),
+    linear-gradient(150deg, var(--night), var(--plum) 45%, var(--maroon));
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(255,226,160,.25) 0 1px, transparent 2px) 0 0/100px 100px,
+    radial-gradient(circle, rgba(255,255,255,.13) 0 1px, transparent 2px) 50px 45px/150px 150px;
+  opacity:.42;
+}
+
+.page{
+  width:min(1160px,92vw);
+  margin:auto;
+  padding:34px 0 72px;
+  position:relative;
+  z-index:1;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:22px;
+}
+
+.topbar a{
+  color:var(--soft-gold);
+  text-decoration:none;
+  border:1px solid rgba(216,169,59,.35);
+  border-radius:999px;
+  padding:10px 16px;
+  background:rgba(255,255,255,.04);
+}
+
+.hero{
+  min-height:520px;
+  border:1px solid rgba(216,169,59,.42);
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(to top, rgba(9,0,15,.96), rgba(9,0,15,.28)),
+    url("images/chapter-7-final-wish-hero.jpg") center/cover no-repeat,
+    radial-gradient(circle at 58% 32%, rgba(216,169,59,.18), transparent 34%),
+    linear-gradient(135deg, rgba(59,7,30,.95), rgba(33,0,47,.96));
+  box-shadow:0 28px 90px rgba(0,0,0,.55);
+}
+
+.hero-content{
+  position:absolute;
+  left:clamp(26px,6vw,74px);
+  right:clamp(26px,6vw,74px);
+  bottom:clamp(34px,7vw,76px);
+}
+
+.kicker{
+  color:var(--soft-gold);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:.82rem;
+  margin-bottom:12px;
+}
+
+h1{
+  font-family: Georgia, "Times New Roman", serif;
+  margin:0;
+  max-width:850px;
+  font-size:clamp(3rem,7vw,6.4rem);
+  line-height:.92;
+  color:#fff1c4;
+  text-shadow:0 0 24px rgba(216,169,59,.26);
+}
+
+.subtitle{
+  max-width:740px;
+  margin:22px 0 0;
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  line-height:1.55;
+  color:rgba(247,234,208,.87);
+}
+
+.story-wrap{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 330px;
+  gap:30px;
+  margin-top:42px;
+  align-items:start;
+}
+
+.story{
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(216,169,59,.24);
+  border-radius:28px;
+  padding:clamp(24px,4vw,44px);
+  box-shadow:0 20px 55px rgba(0,0,0,.24);
+}
+
+.story p{
+  font-size:1.12rem;
+  line-height:1.82;
+  margin:0 0 24px;
+}
+
+.image-strip{
+  display:grid;
+  gap:18px;
+  position:sticky;
+  top:22px;
+}
+
+.image-card{
+  min-height:190px;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(216,169,59,.28);
+  background:
+    linear-gradient(to top, rgba(9,0,15,.82), rgba(9,0,15,.08)),
+    var(--img) center/cover no-repeat,
+    linear-gradient(135deg, rgba(61,8,31,.9), rgba(34,0,48,.92));
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+
+.image-card.tall{min-height:270px}
+
+.image-card:nth-child(1){--img:url("images/chapter-7-jafar-genie.jpg")}
+.image-card:nth-child(2){--img:url("images/chapter-7-genie-freed.jpg")}
+.image-card:nth-child(3){--img:url("images/chapter-7-agrabah-celebration.jpg")}
+
+.activities{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.panel{
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.vocab-card{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.vocab-card strong{
+  color:var(--soft-gold);
+}
+
+.vocab-instructions{
+  margin:0 0 16px;
+  color:rgba(247,234,208,.82);
+  line-height:1.45;
+}
+
+.match-list{
+  display:grid;
+  gap:12px;
+}
+
+.match-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:12px;
+  align-items:center;
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.match-word{
+  color:var(--soft-gold);
+  font-weight:bold;
+  font-size:1.12rem;
+}
+
+.match-row select{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.match-row.correct{
+  border-color:rgba(117,214,137,.75);
+  background:rgba(57,134,75,.16);
+}
+
+.match-row.incorrect{
+  border-color:rgba(255,134,117,.75);
+  background:rgba(134,57,57,.16);
+}
+
+.vocab-result{
+  margin-top:16px;
+  color:var(--soft-gold);
+  font-weight:bold;
+}
+
+@media(max-width:620px){
+  .match-row{grid-template-columns:1fr}
+}
+
+
+.memory-controls{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+button,.download{
+  cursor:pointer;
+  border:1px solid rgba(216,169,59,.45);
+  background:linear-gradient(135deg, rgba(216,169,59,.28), rgba(111,65,12,.28));
+  color:#fff1c4;
+  border-radius:999px;
+  padding:10px 14px;
+  font-family:inherit;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.flip-card{
+  min-height:74px;
+  border:1px solid rgba(255,226,160,.25);
+  border-radius:16px;
+  background:rgba(0,0,0,.28);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:10px;
+  cursor:pointer;
+  color:transparent;
+  user-select:none;
+  transition:.2s;
+}
+
+.flip-card::after{
+  content:"?";
+  color:#fff1c4;
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+.flip-card.flipped,
+.flip-card.matched{
+  color:#fff1c4;
+  background:rgba(216,169,59,.16);
+}
+
+.flip-card.flipped::after,
+.flip-card.matched::after{
+  display:none;
+}
+
+.csv-box{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:24px;
+  padding:22px;
+  background:rgba(0,0,0,.18);
+}
+
+.csv-box p{
+  margin-top:0;
+  line-height:1.5;
+  color:rgba(247,234,208,.8);
+}
+
+
+.results-panel{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.results-panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:14px 0 16px;
+}
+
+.results-grid input{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.export-note{
+  color:rgba(247,234,208,.8);
+  line-height:1.45;
+  margin:0 0 12px;
+}
+
+@media(max-width:620px){
+  .results-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:920px){
+  .story-wrap{grid-template-columns:1fr}
+  .image-strip{position:static; grid-template-columns:repeat(3,1fr)}
+  .image-card,.image-card.tall{min-height:180px}
+  .activities{grid-template-columns:1fr}
+}
+
+@media(max-width:620px){
+  .topbar{align-items:flex-start; flex-direction:column}
+  .hero{min-height:480px}
+  .image-strip{grid-template-columns:1fr}
+  .memory-grid{grid-template-columns:repeat(2,1fr)}
+  .vocab-grid{grid-template-columns:1fr}
+}
+
+/* Compatibility for Chapter 3 activity layout only. Hero/title CSS above is unchanged from Chapter 1. */
+label{
+  display:block;
+  margin:18px 0 8px;
+  color:rgba(247,234,208,.88);
+  line-height:1.45;
+}
+
+select,input,textarea{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.wide{
+  grid-column:1/-1;
+}
+
+.venn{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+  margin-top:15px;
+}
+
+.zone{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:20px;
+  padding:15px;
+  min-height:260px;
+  background:rgba(0,0,0,.18);
+}
+
+.zone h3{
+  margin-top:0;
+  color:var(--soft-gold);
+}
+
+.bank{
+  margin-top:20px;
+}
+
+.tag{
+  display:inline-block;
+  padding:8px 12px;
+  margin:5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,226,160,.16);
+}
+
+@media(max-width:920px){
+  .venn{grid-template-columns:1fr}
+}
+
+
+.quiz-list{
+  display:grid;
+  gap:14px;
+}
+
+.quiz-row{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:14px;
+  background:rgba(0,0,0,.18);
+}
+
+.quiz-row label,
+.panel label{
+  display:block;
+  color:rgba(247,234,208,.9);
+  line-height:1.45;
+  margin:0 0 10px;
+  font-weight:bold;
+}
+
+.quiz-row select,
+.panel select,
+.panel textarea{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.panel textarea{
+  min-height:110px;
+  margin:10px 0 18px;
+  resize:vertical;
+}
+
+.quiz-row.correct{
+  border-color:rgba(117,214,137,.75);
+  background:rgba(57,134,75,.16);
+}
+
+.quiz-row.incorrect{
+  border-color:rgba(255,134,117,.75);
+  background:rgba(134,57,57,.16);
+}
+
+.wide{
+  grid-column:1/-1;
+}
+
+
+.panel input,
+.panel select,
+.panel textarea{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+  margin-bottom:16px;
+}
+
+.panel textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+#fullEssay{
+  min-height:260px;
+}
+
+.panel label{
+  display:block;
+  color:rgba(247,234,208,.92);
+  font-weight:bold;
+  line-height:1.45;
+  margin:10px 0 8px;
+}
+
+.wide{
+  grid-column:1/-1;
+}
+
+</style>
+</head>
+
+<body>
+<main class="page">
+  <div class="topbar">
+    <a href="chapter6.html">← Previous Chapter</a>
+    <a href="index.html">Contents</a>
+    <a href="index.html">Finish →</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="kicker">Chapter 7</div>
+      <h1>The Final Wish</h1>
+      <p class="subtitle">Aladdin defeats Jafar by turning his hunger for power against him, then uses his final wish to free the Genie.</p>
+    </div>
+  </section>
+
+  <section class="story-wrap">
+    <article class="story">
+<p>Determined to save Jasmine and free Agrabah from Jafar's rule, Aladdin returned to the palace and confronted the sorcerer before the people he now controlled through fear and magic. Although Jafar possessed enormous power, Aladdin understood something his enemy did not. Throughout his life, he had survived by observing people carefully, and he recognised that Jafar's greatest weakness was not a lack of strength but an endless hunger for more of it.</p>
+
+<p>As the confrontation unfolded, Aladdin deliberately challenged Jafar's pride. He argued that despite all his magical abilities, Jafar was still not the most powerful being in the room. That title, he claimed, belonged to the Genie. The suggestion immediately struck a nerve. Jafar had spent his entire life seeking greater authority, and the idea that someone else remained more powerful than him was impossible for his pride to accept.</p>
+
+<p>Blinded by ambition, Jafar made a final and disastrous decision. He wished to become an all-powerful genie, believing that such a transformation would grant him unlimited control over the world. For a brief moment, it appeared that his wish had succeeded. Magical energy erupted throughout the palace as his powers expanded beyond anything he had previously possessed.</p>
+
+<p>However, Jafar had overlooked a crucial detail.</p>
+
+<p>A genie's immense power came at a cost.</p>
+
+<p>The same magic that granted his wish also bound him to a lamp, just as it had bound the Genie for centuries. Golden shackles appeared around his wrists, and a black lamp materialised beside him. Before he could understand what was happening, his body dissolved into swirling red smoke and was pulled into the lamp. The most powerful sorcerer in the world had become a prisoner of his own ambition.</p>
+
+<p>With Jafar defeated, peace gradually returned to Agrabah. The Sultan reclaimed his throne, Jasmine was freed from captivity, and the fear that had spread throughout the kingdom began to fade. Although Aladdin still possessed one final wish, he chose not to use it for wealth, power, or status. Instead, he used it to grant the Genie the freedom he had been denied for centuries.</p>
+
+<p>The selfless act changed everything. Impressed by Aladdin's honesty, courage, and willingness to put others before himself, the Sultan abolished the ancient law requiring Jasmine to marry a prince. Free to choose her own future, Jasmine chose Aladdin. As celebrations filled the city and the Genie set off to explore the world as a free being, Agrabah entered a new chapter built not upon status or power, but upon trust, fairness, and the freedom to choose one's own path.</p>
+</article>
+
+    <aside class="image-strip" aria-label="Chapter artwork">
+      <div class="image-card tall"></div>
+      <div class="image-card"></div>
+      <div class="image-card"></div>
+    </aside>
+  </section>
+
+  
+
+<section class="activities">
+  <div class="panel wide">
+    <h2>Final Essay Task: What Is the Main Theme of Aladdin?</h2>
+    <p class="vocab-instructions">Use the frame below to plan and write an essay about the main theme of the story. Choose one main theme, support it with evidence, and explain what the story teaches the reader.</p>
+
+    <label>Student Name</label>
+    <input id="studentName" placeholder="Student name">
+
+    <label>Class</label>
+    <input id="studentClass" placeholder="Class">
+
+    <label>Choose the main theme you will write about</label>
+    <select id="essayTheme">
+      <option value="">Choose a theme...</option>
+      <option>Power can be dangerous when people want too much of it.</option>
+      <option>True worth comes from honesty and character, not status.</option>
+      <option>Freedom means being able to choose your own path.</option>
+      <option>Lies can damage trust, even when people have good intentions.</option>
+      <option>Selfless choices are more powerful than selfish wishes.</option>
+    </select>
+
+    <label>Introduction: What is the story mostly teaching us?</label>
+    <textarea id="intro" placeholder="In Aladdin, one of the main themes is..."></textarea>
+
+    <label>Body Paragraph 1: How does Aladdin show this theme?</label>
+    <textarea id="body1" placeholder="Aladdin shows this theme when... This matters because..."></textarea>
+
+    <label>Body Paragraph 2: How does Jafar show this theme?</label>
+    <textarea id="body2" placeholder="Jafar shows this theme when... This proves that..."></textarea>
+
+    <label>Body Paragraph 3: How do Jasmine or the Genie show this theme?</label>
+    <textarea id="body3" placeholder="Jasmine/the Genie also shows this theme because..."></textarea>
+
+    <label>Conclusion: What should the reader learn from the story?</label>
+    <textarea id="conclusion" placeholder="Overall, Aladdin teaches us that..."></textarea>
+
+    <label>Full Essay Draft</label>
+    <textarea id="fullEssay" placeholder="Write your full essay here using your ideas above."></textarea>
+
+    <button onclick="downloadResults()">Download Essay CSV</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+
+function csvSafe(value){
+  return '"' + String(value ?? "").replace(/"/g, '""') + '"';
+}
+
+function downloadResults(){
+  const rows = [
+    ["Student Name", document.getElementById("studentName").value],
+    ["Class", document.getElementById("studentClass").value],
+    ["Chapter", "Chapter 7: The Final Wish"],
+    ["Essay Theme", document.getElementById("essayTheme").value],
+    ["Introduction", document.getElementById("intro").value],
+    ["Body Paragraph 1 - Aladdin", document.getElementById("body1").value],
+    ["Body Paragraph 2 - Jafar", document.getElementById("body2").value],
+    ["Body Paragraph 3 - Jasmine or Genie", document.getElementById("body3").value],
+    ["Conclusion", document.getElementById("conclusion").value],
+    ["Full Essay Draft", document.getElementById("fullEssay").value],
+    ["Date", new Date().toLocaleString()]
+  ];
+
+  const csv = rows.map(row => row.map(csvSafe).join(",")).join("\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "chapter7_final_essay.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+</script>
+</body>
+</html>

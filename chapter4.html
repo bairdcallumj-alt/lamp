@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chapter 4: Prince Ali</title>
+<style>
+:root{
+  --night:#09000f;
+  --plum:#21002f;
+  --maroon:#3b071e;
+  --gold:#d8a93b;
+  --soft-gold:#ffe3a2;
+  --cream:#f7ead0;
+  --ink:rgba(9,0,15,.86);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: Georgia, "Times New Roman", serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 16% 7%, rgba(216,169,59,.16), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(113,42,148,.28), transparent 30%),
+    linear-gradient(150deg, var(--night), var(--plum) 45%, var(--maroon));
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(255,226,160,.25) 0 1px, transparent 2px) 0 0/100px 100px,
+    radial-gradient(circle, rgba(255,255,255,.13) 0 1px, transparent 2px) 50px 45px/150px 150px;
+  opacity:.42;
+}
+
+.page{
+  width:min(1160px,92vw);
+  margin:auto;
+  padding:34px 0 72px;
+  position:relative;
+  z-index:1;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:22px;
+}
+
+.topbar a{
+  color:var(--soft-gold);
+  text-decoration:none;
+  border:1px solid rgba(216,169,59,.35);
+  border-radius:999px;
+  padding:10px 16px;
+  background:rgba(255,255,255,.04);
+}
+
+.hero{
+  min-height:520px;
+  border:1px solid rgba(216,169,59,.42);
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(to top, rgba(9,0,15,.96), rgba(9,0,15,.28)),
+    url("images/chapter-4-prince-ali-hero.jpg") center/cover no-repeat,
+    radial-gradient(circle at 58% 32%, rgba(216,169,59,.18), transparent 34%),
+    linear-gradient(135deg, rgba(59,7,30,.95), rgba(33,0,47,.96));
+  box-shadow:0 28px 90px rgba(0,0,0,.55);
+}
+
+.hero-content{
+  position:absolute;
+  left:clamp(26px,6vw,74px);
+  right:clamp(26px,6vw,74px);
+  bottom:clamp(34px,7vw,76px);
+}
+
+.kicker{
+  color:var(--soft-gold);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:.82rem;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+  max-width:850px;
+  font-size:clamp(3rem,7vw,6.4rem);
+  line-height:.92;
+  color:#fff1c4;
+  text-shadow:0 0 24px rgba(216,169,59,.26);
+}
+
+.subtitle{
+  max-width:740px;
+  margin:22px 0 0;
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  line-height:1.55;
+  color:rgba(247,234,208,.87);
+}
+
+.story-wrap{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 330px;
+  gap:30px;
+  margin-top:42px;
+  align-items:start;
+}
+
+.story{
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(216,169,59,.24);
+  border-radius:28px;
+  padding:clamp(24px,4vw,44px);
+  box-shadow:0 20px 55px rgba(0,0,0,.24);
+}
+
+.story p{
+  font-size:1.12rem;
+  line-height:1.82;
+  margin:0 0 24px;
+}
+
+.image-strip{
+  display:grid;
+  gap:18px;
+  position:sticky;
+  top:22px;
+}
+
+.image-card{
+  min-height:190px;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(216,169,59,.28);
+  background:
+    linear-gradient(to top, rgba(9,0,15,.82), rgba(9,0,15,.08)),
+    var(--img) center/cover no-repeat,
+    linear-gradient(135deg, rgba(61,8,31,.9), rgba(34,0,48,.92));
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+
+.image-card.tall{min-height:270px}
+
+.image-card:nth-child(1){--img:url("images/chapter-4-prince-ali-procession.jpg")}
+.image-card:nth-child(2){--img:url("images/chapter-4-jasmine-suspicious.jpg")}
+.image-card:nth-child(3){--img:url("images/chapter-4-palace-gardens.jpg")}
+
+.activities{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.panel{
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:28px;
+  background:rgba(255,255,255,.045);
+  padding:26px;
+  box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.panel h2{
+  color:var(--soft-gold);
+  margin:0 0 14px;
+  font-size:1.8rem;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.vocab-card{
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.vocab-card strong{
+  color:var(--soft-gold);
+}
+
+.vocab-instructions{
+  margin:0 0 16px;
+  color:rgba(247,234,208,.82);
+  line-height:1.45;
+}
+
+.match-list{
+  display:grid;
+  gap:12px;
+}
+
+.match-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:12px;
+  align-items:center;
+  border:1px solid rgba(255,226,160,.22);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(0,0,0,.18);
+}
+
+.match-word{
+  color:var(--soft-gold);
+  font-weight:bold;
+  font-size:1.12rem;
+}
+
+.match-row select{
+  width:100%;
+  border:1px solid rgba(216,169,59,.34);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(9,0,15,.75);
+  color:var(--cream);
+  font-family:inherit;
+  font-size:1rem;
+}
+
+.match-row.correct{
+  border-color:rgba(117,214,137,.75);
+  background:rgba(57,134,75,.16);
+}
+
+.match-row.incorrect{
+  border-color:rgba(255,134,117,.75);
+  background:rgba(134,57,57,.16);
+}
+
+.vocab-result{
+  margin-top:16px;
+  color:var(--soft-gold);
+  font-weight:bold;
+}
+
+@media(max-width:620px){
+  .match-row{grid-template-columns:1fr}
+}
+
+
+.memory-controls{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+button,.download{
+  cursor:pointer;
+  border:1px solid rgba(216,169,59,.45);
+  background:linear-gradient(135deg, rgba(216,169,59,.28), rgba(111,65,12,.28));
+  color:#fff1c4;
+  border-radius:999px;
+  padding:10px 14px;
+  font-family:inherit;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.flip-card{
+  min-height:74px;
+  border:1px solid rgba(255,226,160,.25);
+  border-radius:16px;
+  background:rgba(0,0,0,.28);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:10px;
+  cursor:pointer;
+  color:transparent;
+  user-select:none;
+  transition:.2s;
+}
+
+.flip-card::after{
+  content:"?";
+  color:#fff1c4;
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+.flip-card.flipped,
+.flip-card.matched{
+  color:#fff1c4;
+  background:rgba(216,169,59,.16);
+}
+
+.flip-card.flipped::after,
+.flip-card.matched::after{
+  display:none;
+}
+
+.csv-box{
+  margin-top:24px;
+  border:1px solid rgba(216,169,59,.28);
+  border-radius:24px;
+  padding:22px;
+  background:rgba(0,0,0,.18);
+}
+
+.csv-box p{
+  margin-top:0;
+  line-height:1.5;
+  color:rgba(247,234,208,.8);
+}
+
+@media(max-width:920px){
+  .story-wrap{grid-template-columns:1fr}
+  .image-strip{position:static; grid-template-columns:repeat(3,1fr)}
+  .image-card,.image-card.tall{min-height:180px}
+  .activities{grid-template-columns:1fr}
+}
+
+@media(max-width:620px){
+  .topbar{align-items:flex-start; flex-direction:column}
+  .hero{min-height:480px}
+  .image-strip{grid-template-columns:1fr}
+  .memory-grid{grid-template-columns:repeat(2,1fr)}
+  .vocab-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+  <div class="topbar">
+    <a href="chapter3.html">← Previous Chapter</a>
+    <a href="index.html">Contents</a>
+    <a href="chapter5.html">Next Chapter →</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="kicker">Chapter 4</div>
+      <h1>Prince Ali</h1>
+      <p class="subtitle">A royal procession dazzles Agrabah as Aladdin hides behind a new identity, but growing feelings for Jasmine make the deception increasingly difficult to maintain.</p>
+    </div>
+  </section>
+
+  <section class="story-wrap">
+    <article class="story">
+      <p>When Prince Ali arrived in Agrabah, the entire city seemed to stop and watch. A magnificent procession wound its way through the streets, featuring richly decorated elephants, musicians, dancers, and servants carrying gifts of gold, silk, and precious jewels. Colourful banners fluttered above the crowd while excited citizens gathered along the roads to catch a glimpse of the mysterious royal visitor. At the centre of the spectacle rode Aladdin, transformed by the Genie's magic into a prince whose wealth and status appeared beyond question.</p>
+
+      <p>News of the arrival quickly reached the palace. The Sultan, who had spent months searching for a suitable husband for his daughter, was immediately impressed by the visitor's apparent success, generosity, and confidence. Prince Ali seemed to possess everything that tradition demanded of a future ruler. His wealth was extraordinary, his reputation appeared flawless, and his grand entrance suggested a level of power that few could match. To the Sultan, the arrival of such a prince seemed almost too good to be true.</p>
+
+      <p>Jasmine, however, was far less convinced.</p>
+
+      <p>Although she recognised the charm and confidence displayed by Prince Ali, she could not ignore the feeling that something about him seemed strangely familiar. Unlike many of the princes she had previously met, he appeared genuinely interested in her opinions and ideas rather than simply attempting to impress her. Even so, she remained cautious. The extravagant parade, expensive gifts, and carefully crafted image felt designed to attract attention rather than reveal character, and Jasmine had spent enough time around powerful people to know that appearances could be misleading.</p>
+
+      <p>Over the following days, the two spent more time together within the palace gardens and courtyards. Their conversations gradually moved beyond formal introductions and polite compliments, touching instead on their hopes, frustrations, and dreams for the future. Jasmine spoke about feeling trapped by traditions she had never chosen, while Aladdin found himself listening more carefully than he had ever listened to anyone before. Although he concealed his true identity, he could not hide the kindness, humour, and determination that had always defined him.</p>
+
+      <p>As their friendship grew stronger, Aladdin became increasingly aware of the problem he had created. Jasmine seemed to appreciate the qualities that belonged to him rather than the title of Prince Ali, yet every moment they spent together was built upon a deception. While the possibility of winning Jasmine's affection filled him with hope, the fear of losing her trust began to weigh heavily on his conscience.</p>
+    </article>
+
+    <aside class="image-strip" aria-label="Chapter artwork">
+      <div class="image-card tall"></div>
+      <div class="image-card"></div>
+      <div class="image-card"></div>
+    </aside>
+  </section>
+
+  <section class="activities">
+    <div class="panel">
+      <h2>Vocabulary Builder</h2>
+      <p class="vocab-instructions">Match each chapter word to its meaning, then check your answers.</p>
+
+      <div class="match-list" id="vocabMatch">
+        <div class="match-row" data-answer="extremely grand and impressive">
+          <div class="match-word">magnificent</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>extremely grand and impressive</option>
+            <option>a public display or parade</option>
+            <option>appearing to be true or real</option>
+            <option>careful and unwilling to trust easily</option>
+            <option>something that hides the truth</option>
+            <option>a person's sense of right and wrong</option>
+          </select>
+        </div>
+        <div class="match-row" data-answer="a public display or parade">
+          <div class="match-word">procession</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>extremely grand and impressive</option>
+            <option>a public display or parade</option>
+            <option>appearing to be true or real</option>
+            <option>careful and unwilling to trust easily</option>
+            <option>something that hides the truth</option>
+            <option>a person's sense of right and wrong</option>
+          </select>
+        </div>
+        <div class="match-row" data-answer="appearing to be true or real">
+          <div class="match-word">apparent</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>extremely grand and impressive</option>
+            <option>a public display or parade</option>
+            <option>appearing to be true or real</option>
+            <option>careful and unwilling to trust easily</option>
+            <option>something that hides the truth</option>
+            <option>a person's sense of right and wrong</option>
+          </select>
+        </div>
+        <div class="match-row" data-answer="careful and unwilling to trust easily">
+          <div class="match-word">cautious</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>extremely grand and impressive</option>
+            <option>a public display or parade</option>
+            <option>appearing to be true or real</option>
+            <option>careful and unwilling to trust easily</option>
+            <option>something that hides the truth</option>
+            <option>a person's sense of right and wrong</option>
+          </select>
+        </div>
+        <div class="match-row" data-answer="something that hides the truth">
+          <div class="match-word">deception</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>extremely grand and impressive</option>
+            <option>a public display or parade</option>
+            <option>appearing to be true or real</option>
+            <option>careful and unwilling to trust easily</option>
+            <option>something that hides the truth</option>
+            <option>a person's sense of right and wrong</option>
+          </select>
+        </div>
+        <div class="match-row" data-answer="a person's sense of right and wrong">
+          <div class="match-word">conscience</div>
+          <select>
+            <option value="">Choose a meaning...</option>
+            <option>extremely grand and impressive</option>
+            <option>a public display or parade</option>
+            <option>appearing to be true or real</option>
+            <option>careful and unwilling to trust easily</option>
+            <option>something that hides the truth</option>
+            <option>a person's sense of right and wrong</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="memory-controls" style="margin-top:16px;">
+        <button onclick="checkVocab()">Check Vocabulary</button>
+        <button onclick="resetVocab()">Reset</button>
+      </div>
+      <div class="vocab-result" id="vocabResult"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Memory Flip</h2>
+      <div class="memory-controls">
+        <button onclick="resetGame()">Reset Game</button>
+        <button onclick="shuffleCards()">Shuffle</button>
+      </div>
+      <div class="memory-grid" id="memoryGrid"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+
+function checkVocab(){
+  const rows = document.querySelectorAll(".match-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    row.classList.remove("correct","incorrect");
+    if(select.value === row.dataset.answer){
+      row.classList.add("correct");
+      score++;
+    }else{
+      row.classList.add("incorrect");
+    }
+  });
+  document.getElementById("vocabResult").textContent = "Vocabulary score: " + score + " / " + rows.length;
+}
+
+function resetVocab(){
+  document.querySelectorAll(".match-row").forEach(row => {
+    row.classList.remove("correct","incorrect");
+    row.querySelector("select").value = "";
+  });
+  document.getElementById("vocabResult").textContent = "";
+}
+
+
+const pairs = [
+  ["Prince Ali", "Aladdin"],
+  ["Jasmine", "Princess"],
+  ["Sultan", "Impressed"],
+  ["Procession", "Parade"],
+  ["Genie", "Magic"],
+  ["Gardens", "Conversations"],
+  ["Deception", "Secret"],
+  ["Conscience", "Guilt"]
+];
+
+let cards = [];
+let first = null;
+let lock = false;
+
+function buildCards(){
+  cards = pairs.flatMap(pair => [
+    {text:pair[0], match:pair[1]},
+    {text:pair[1], match:pair[0]}
+  ]);
+}
+
+function shuffleCards(){
+  buildCards();
+  cards.sort(() => Math.random() - 0.5);
+  const grid = document.getElementById("memoryGrid");
+  grid.innerHTML = "";
+  first = null;
+  lock = false;
+
+  cards.forEach(card => {
+    const el = document.createElement("div");
+    el.className = "flip-card";
+    el.textContent = card.text;
+    el.dataset.text = card.text;
+    el.dataset.match = card.match;
+    el.onclick = () => flip(el);
+    grid.appendChild(el);
+  });
+}
+
+function flip(el){
+  if(lock || el.classList.contains("flipped") || el.classList.contains("matched")) return;
+  el.classList.add("flipped");
+
+  if(!first){
+    first = el;
+    return;
+  }
+
+  if(first.dataset.match === el.dataset.text){
+    first.classList.add("matched");
+    el.classList.add("matched");
+    first = null;
+  }else{
+    lock = true;
+    setTimeout(() => {
+      first.classList.remove("flipped");
+      el.classList.remove("flipped");
+      first = null;
+      lock = false;
+    }, 800);
+  }
+}
+
+function resetGame(){
+  shuffleCards();
+}
+
+shuffleCards();
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chapter 2: The Cave of Wonders</title>
+<style>
+:root{
+  --night:#09000f; --plum:#21002f; --maroon:#3b071e; --gold:#d8a93b;
+  --soft-gold:#ffe3a2; --cream:#f7ead0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--cream);
+  background:radial-gradient(circle at 16% 7%,rgba(216,169,59,.16),transparent 26%),
+             radial-gradient(circle at 84% 20%,rgba(113,42,148,.28),transparent 30%),
+             linear-gradient(150deg,var(--night),var(--plum) 45%,var(--maroon));
+  overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none;
+  background:radial-gradient(circle,rgba(255,226,160,.25) 0 1px,transparent 2px) 0 0/100px 100px,
+             radial-gradient(circle,rgba(255,255,255,.13) 0 1px,transparent 2px) 50px 45px/150px 150px;
+  opacity:.42;
+}
+.page{width:min(1160px,92vw); margin:auto; padding:34px 0 72px; position:relative; z-index:1}
+.topbar{display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:22px; flex-wrap:wrap}
+.topbar a{color:var(--soft-gold); text-decoration:none; border:1px solid rgba(216,169,59,.35); border-radius:999px; padding:10px 16px; background:rgba(255,255,255,.04)}
+.hero{
+  min-height:520px; border:1px solid rgba(216,169,59,.42); border-radius:34px; overflow:hidden; position:relative;
+  background:linear-gradient(to top,rgba(9,0,15,.96),rgba(9,0,15,.28)),
+             url("images/chapter-2-cave-of-wonders-hero.jpg") center/cover no-repeat,
+             radial-gradient(circle at 58% 32%,rgba(216,169,59,.18),transparent 34%),
+             linear-gradient(135deg,rgba(59,7,30,.95),rgba(33,0,47,.96));
+  box-shadow:0 28px 90px rgba(0,0,0,.55);
+}
+.hero-content{position:absolute; left:clamp(26px,6vw,74px); right:clamp(26px,6vw,74px); bottom:clamp(34px,7vw,76px)}
+.kicker{color:var(--soft-gold); letter-spacing:.22em; text-transform:uppercase; font-weight:bold; font-size:.82rem; margin-bottom:12px}
+h1{margin:0; max-width:850px; font-size:clamp(3rem,7vw,6.4rem); line-height:.92; color:#fff1c4; text-shadow:0 0 24px rgba(216,169,59,.26)}
+.subtitle{max-width:740px; margin:22px 0 0; font-size:clamp(1.05rem,2vw,1.35rem); line-height:1.55; color:rgba(247,234,208,.87)}
+.story-wrap{display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:30px; margin-top:42px; align-items:start}
+.story,.panel,.results-panel{background:rgba(255,255,255,.045); border:1px solid rgba(216,169,59,.24); border-radius:28px; padding:clamp(24px,4vw,44px); box-shadow:0 20px 55px rgba(0,0,0,.24)}
+.story p{font-size:1.12rem; line-height:1.82; margin:0 0 24px}
+.image-strip{display:grid; gap:18px; position:sticky; top:22px}
+.image-card{min-height:190px; border-radius:24px; overflow:hidden; border:1px solid rgba(216,169,59,.28);
+  background:linear-gradient(to top,rgba(9,0,15,.82),rgba(9,0,15,.08)),var(--img) center/cover no-repeat,linear-gradient(135deg,rgba(61,8,31,.9),rgba(34,0,48,.92));
+  box-shadow:0 16px 40px rgba(0,0,0,.28)}
+.image-card.tall{min-height:270px}
+.image-card:nth-child(1){--img:url("images/chapter-2-prison.jpg")}
+.image-card:nth-child(2){--img:url("images/chapter-2-tiger-head.jpg")}
+.image-card:nth-child(3){--img:url("images/chapter-2-genie.jpg")}
+.activities{margin-top:34px; display:grid; grid-template-columns:1fr 1fr; gap:24px}
+.panel h2,.results-panel h2{color:var(--soft-gold); margin:0 0 14px; font-size:1.8rem}
+.vocab-instructions{margin:0 0 16px; color:rgba(247,234,208,.82); line-height:1.45}
+.match-list{display:grid; gap:12px}
+.match-row{display:grid; grid-template-columns:160px 1fr; gap:12px; align-items:center; border:1px solid rgba(255,226,160,.22); border-radius:16px; padding:12px; background:rgba(0,0,0,.18)}
+.comp-row{grid-template-columns:1fr}
+.match-word{color:var(--soft-gold); font-weight:bold; font-size:1.05rem}
+select,input,textarea{width:100%; border:1px solid rgba(216,169,59,.34); border-radius:14px; padding:12px; background:rgba(9,0,15,.75); color:var(--cream); font-family:inherit; font-size:1rem}
+.match-row.correct{border-color:rgba(117,214,137,.75); background:rgba(57,134,75,.16)}
+.match-row.incorrect{border-color:rgba(255,134,117,.75); background:rgba(134,57,57,.16)}
+button{cursor:pointer; border:1px solid rgba(216,169,59,.45); background:linear-gradient(135deg,rgba(216,169,59,.28),rgba(111,65,12,.28)); color:#fff1c4; border-radius:999px; padding:10px 14px; font-family:inherit; font-weight:bold}
+.controls{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+.result{margin-top:16px; color:var(--soft-gold); font-weight:bold}
+.wide-panel{grid-column:1/-1}
+.analysis-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0 22px}
+.analysis-card{border:1px solid rgba(255,226,160,.22); border-radius:18px; padding:16px; background:rgba(0,0,0,.18)}
+.analysis-card strong{color:var(--soft-gold); font-size:1.12rem}
+.analysis-card p{margin:8px 0 0; line-height:1.48; color:rgba(247,234,208,.84)}
+.wide-panel label{display:block; margin:18px 0 8px; color:var(--soft-gold); font-weight:bold}
+textarea{min-height:92px; resize:vertical; line-height:1.4}
+.results-panel{margin-top:24px}
+.results-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0 16px}
+.export-note{color:rgba(247,234,208,.8); line-height:1.45; margin:0 0 12px}
+@media(max-width:920px){
+  .story-wrap{grid-template-columns:1fr}
+  .image-strip{position:static; grid-template-columns:repeat(3,1fr)}
+  .image-card,.image-card.tall{min-height:180px}
+  .activities{grid-template-columns:1fr}
+  .analysis-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .hero{min-height:480px}
+  .image-strip,.results-grid{grid-template-columns:1fr}
+  .match-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="topbar">
+    <a href="chapter1.html">← Previous Chapter</a>
+    <a href="index.html">Contents</a>
+    <a href="chapter3.html">Next Chapter →</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="kicker">Chapter 2</div>
+      <h1>The Cave of Wonders</h1>
+      <p class="subtitle">Aladdin is drawn from the prison into the desert, where temptation, danger, and magic wait beneath the sand.</p>
+    </div>
+  </section>
+
+  <section class="story-wrap">
+    <article class="story">
+      <p>The palace prison was cold, dark, and silent, giving Aladdin plenty of time to think about the mistakes that had brought him there. While he sat alone in his cell, wondering how he might escape, an unexpected visitor arrived. The man introduced himself as a traveller with knowledge of a secret treasure hidden deep beneath the desert. He spoke of an ancient cave filled with enough gold and jewels to transform the life of anyone fortunate enough to enter it. More importantly, he explained that powerful magic protected the cave and allowed only one person, known as the Diamond in the Rough, to pass safely through its entrance. To Aladdin's surprise, the stranger seemed convinced that he was that person.</p>
+      <p>Tempted by the possibility of freedom and a better future, Aladdin agreed to help. Before dawn, he and the mysterious man rode out into the desert, leaving the city of Agrabah behind. As the sun began to rise, they arrived at an empty stretch of sand where the stranger raised a staff crowned with a glowing green jewel. The earth trembled beneath their feet as a gigantic tiger's head emerged from the desert floor. Its eyes blazed with golden light, and its enormous mouth opened to reveal a staircase descending into darkness.</p>
+      <p>Hidden beneath the desert was a cavern unlike anything Aladdin had ever imagined. Mountains of gold coins, priceless jewels, ancient crowns, and forgotten treasures filled the chamber from wall to wall. Despite the temptation surrounding him, Aladdin remembered the stranger's warning to touch nothing except an old lamp resting upon a stone pedestal at the far end of the cave.</p>
+      <p>As he approached the lamp, however, Abu became distracted by a brilliant ruby glowing among the treasure. The moment the monkey grabbed the gemstone, the cave erupted with fury. The ground shook violently, cracks spread across the floor, and huge sections of rock crashed from the ceiling. Realising the cave was collapsing, Aladdin seized the lamp and raced for the exit, only to find his escape blocked by falling stone.</p>
+      <p>Trapped beneath the desert and believing his adventure had reached a disastrous end, Aladdin examined the lamp more closely. When he rubbed its dusty surface, a swirling column of blue smoke burst into the air and formed the shape of a gigantic magical being. Introducing himself as the Genie of the Lamp, the mysterious figure explained that he possessed the power to grant three wishes, instantly changing Aladdin's understanding of what was possible.</p>
+    </article>
+    <aside class="image-strip" aria-label="Chapter artwork">
+      <div class="image-card tall"></div><div class="image-card"></div><div class="image-card"></div>
+    </aside>
+  </section>
+
+  <section class="activities">
+    <div class="panel">
+      <h2>Word Recognition</h2>
+      <p class="vocab-instructions">Match each word from the chapter to its correct meaning.</p>
+      <div class="match-list" id="vocabMatch">
+        <div class="match-row" data-answer="very old"><div class="match-word">ancient</div><select><option value="">Choose a meaning...</option><option>very old</option><option>a large cave</option><option>a strong desire to do something</option><option>causing great harm</option><option>difficult to explain or understand</option><option>great wealth or luck</option></select></div>
+        <div class="match-row" data-answer="a large cave"><div class="match-word">cavern</div><select><option value="">Choose a meaning...</option><option>very old</option><option>a large cave</option><option>a strong desire to do something</option><option>causing great harm</option><option>difficult to explain or understand</option><option>great wealth or luck</option></select></div>
+        <div class="match-row" data-answer="a strong desire to do something"><div class="match-word">temptation</div><select><option value="">Choose a meaning...</option><option>very old</option><option>a large cave</option><option>a strong desire to do something</option><option>causing great harm</option><option>difficult to explain or understand</option><option>great wealth or luck</option></select></div>
+        <div class="match-row" data-answer="causing great harm"><div class="match-word">disastrous</div><select><option value="">Choose a meaning...</option><option>very old</option><option>a large cave</option><option>a strong desire to do something</option><option>causing great harm</option><option>difficult to explain or understand</option><option>great wealth or luck</option></select></div>
+        <div class="match-row" data-answer="difficult to explain or understand"><div class="match-word">mysterious</div><select><option value="">Choose a meaning...</option><option>very old</option><option>a large cave</option><option>a strong desire to do something</option><option>causing great harm</option><option>difficult to explain or understand</option><option>great wealth or luck</option></select></div>
+        <div class="match-row" data-answer="great wealth or luck"><div class="match-word">fortune</div><select><option value="">Choose a meaning...</option><option>very old</option><option>a large cave</option><option>a strong desire to do something</option><option>causing great harm</option><option>difficult to explain or understand</option><option>great wealth or luck</option></select></div>
+      </div>
+      <div class="controls"><button onclick="checkVocab()">Check Words</button><button onclick="resetRows('#vocabMatch')">Reset</button></div>
+      <div class="result" id="vocabResult"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Comprehension</h2>
+      <p class="vocab-instructions">Match the correct answer to each question.</p>
+      <div class="match-list" id="compMatch">
+        <div class="match-row comp-row" data-answer="He hoped for freedom and a better future."><div class="match-word">Why did Aladdin agree to help the stranger?</div><select><option value="">Choose an answer...</option><option>Abu grabbed a ruby.</option><option>Powerful magic protected it.</option><option>He hoped for freedom and a better future.</option><option>The Genie appeared.</option><option>He was told to touch only the lamp.</option><option>Three wishes.</option></select></div>
+        <div class="match-row comp-row" data-answer="Powerful magic protected it."><div class="match-word">What protected the Cave of Wonders?</div><select><option value="">Choose an answer...</option><option>Abu grabbed a ruby.</option><option>Powerful magic protected it.</option><option>He hoped for freedom and a better future.</option><option>The Genie appeared.</option><option>He was told to touch only the lamp.</option><option>Three wishes.</option></select></div>
+        <div class="match-row comp-row" data-answer="He was told to touch only the lamp."><div class="match-word">What was Aladdin warned about?</div><select><option value="">Choose an answer...</option><option>Abu grabbed a ruby.</option><option>Powerful magic protected it.</option><option>He hoped for freedom and a better future.</option><option>The Genie appeared.</option><option>He was told to touch only the lamp.</option><option>Three wishes.</option></select></div>
+        <div class="match-row comp-row" data-answer="Abu grabbed a ruby."><div class="match-word">What caused the cave to collapse?</div><select><option value="">Choose an answer...</option><option>Abu grabbed a ruby.</option><option>Powerful magic protected it.</option><option>He hoped for freedom and a better future.</option><option>The Genie appeared.</option><option>He was told to touch only the lamp.</option><option>Three wishes.</option></select></div>
+        <div class="match-row comp-row" data-answer="The Genie appeared."><div class="match-word">What happened when Aladdin rubbed the lamp?</div><select><option value="">Choose an answer...</option><option>Abu grabbed a ruby.</option><option>Powerful magic protected it.</option><option>He hoped for freedom and a better future.</option><option>The Genie appeared.</option><option>He was told to touch only the lamp.</option><option>Three wishes.</option></select></div>
+        <div class="match-row comp-row" data-answer="Three wishes."><div class="match-word">How many wishes could the Genie grant?</div><select><option value="">Choose an answer...</option><option>Abu grabbed a ruby.</option><option>Powerful magic protected it.</option><option>He hoped for freedom and a better future.</option><option>The Genie appeared.</option><option>He was told to touch only the lamp.</option><option>Three wishes.</option></select></div>
+      </div>
+      <div class="controls"><button onclick="checkComp()">Check Comprehension</button><button onclick="resetRows('#compMatch')">Reset</button></div>
+      <div class="result" id="compResult"></div>
+    </div>
+
+    <div class="panel wide-panel">
+      <h2>Critical Analysis</h2>
+      <p class="vocab-instructions">The Cave of Wonders connects to <em>Pandora's Box</em> because both stories explore temptation, warnings, curiosity, and consequences.</p>
+      <div class="analysis-grid">
+        <div class="analysis-card"><strong>Cave of Wonders</strong><p>Aladdin is warned not to touch the treasure. Abu gives in to temptation, grabs the ruby, and the cave collapses.</p></div>
+        <div class="analysis-card"><strong>Pandora's Box</strong><p>Pandora is warned not to open the box. She gives in to curiosity, opens it, and troubles escape into the world.</p></div>
+      </div>
+      <label>1. Why do people sometimes want something more when they are told they cannot have it?</label>
+      <textarea id="analysis1"></textarea>
+      <label>2. How is Abu grabbing the ruby similar to Pandora opening the box?</label>
+      <textarea id="analysis2"></textarea>
+      <label>3. Which story teaches the stronger lesson about self-control? Explain your thinking.</label>
+      <textarea id="analysis3"></textarea>
+      <label>4. Do you agree or disagree: Abu is responsible for what happened in the cave?</label>
+      <select id="opinionLine"><option value="">Choose a position...</option><option>Strongly Agree</option><option>Agree</option><option>Not Sure</option><option>Disagree</option><option>Strongly Disagree</option></select>
+    </div>
+  </section>
+
+  <section class="results-panel">
+    <h2>Download Results</h2>
+    <p class="export-note">Students enter their name and class, then download a CSV showing their word recognition, comprehension, and critical analysis responses.</p>
+    <div class="results-grid"><input id="studentName" placeholder="Student name"><input id="studentClass" placeholder="Class"></div>
+    <button onclick="downloadResults()">Download Results CSV</button>
+  </section>
+</main>
+
+<script>
+function checkGroup(container, resultId, label){
+  const rows = document.querySelectorAll(container + " .match-row");
+  let score = 0;
+  rows.forEach(row => {
+    const select = row.querySelector("select");
+    row.classList.remove("correct","incorrect");
+    if(select.value === row.dataset.answer){ row.classList.add("correct"); score++; }
+    else{ row.classList.add("incorrect"); }
+  });
+  document.getElementById(resultId).textContent = label + " score: " + score + " / " + rows.length;
+}
+function checkVocab(){ checkGroup("#vocabMatch","vocabResult","Word recognition"); }
+function checkComp(){ checkGroup("#compMatch","compResult","Comprehension"); }
+function resetRows(container){
+  document.querySelectorAll(container + " .match-row").forEach(row => {
+    row.classList.remove("correct","incorrect");
+    row.querySelector("select").value = "";
+  });
+  if(container === "#vocabMatch") document.getElementById("vocabResult").textContent = "";
+  if(container === "#compMatch") document.getElementById("compResult").textContent = "";
+}
+function score(container){
+  const rows = document.querySelectorAll(container + " .match-row");
+  let total = 0;
+  rows.forEach(row => { if(row.querySelector("select").value === row.dataset.answer) total++; });
+  return total + " / " + rows.length;
+}
+function csvSafe(value){ return '"' + String(value ?? "").replace(/"/g,'""') + '"'; }
+function downloadResults(){
+  const rows = [
+    ["Student Name", document.getElementById("studentName").value],
+    ["Class", document.getElementById("studentClass").value],
+    ["Chapter", "Chapter 2: The Cave of Wonders"],
+    ["Word Recognition Score", score("#vocabMatch")],
+    ["Comprehension Score", score("#compMatch")],
+    ["Opinion Position", document.getElementById("opinionLine").value],
+    ["Critical Analysis 1", document.getElementById("analysis1").value],
+    ["Critical Analysis 2", document.getElementById("analysis2").value],
+    ["Critical Analysis 3", document.getElementById("analysis3").value],
+    ["Date", new Date().toLocaleString()]
+  ];
+  const csv = rows.map(row => row.map(csvSafe).join(",")).join("\\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "chapter2_cave_of_wonders_results.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+</body>
+</html>
